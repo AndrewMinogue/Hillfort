@@ -13,8 +13,6 @@
 /app/src/manifests/AndroidManifest.xml
 .DS_Store
 /build
-/app/src/java/assignment.hillfort.activities/MapActivity
-/app/src/manifests/AndroidManifest.xml
 /captures
 .externalNativeBuild
 .cxx
