@@ -1,3 +1,5 @@
 /build
 /src/main/java/assignment/hillfort/activities/MapActivity.kt
 /src/main/AndroidManifest.xml
+app/src/release/res/values/google_maps_api.xml
+app/src/debug/res/values/google_maps_api.xml

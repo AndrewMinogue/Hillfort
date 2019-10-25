@@ -15,7 +15,7 @@ import assignment.hillfort.helpers.readImage
 import assignment.hillfort.helpers.readImageFromPath
 import assignment.hillfort.models.HillfortModel
 import assignment.hillfort.helpers.showImagePicker
-
+import org.jetbrains.anko.intentFor
 
 
 class HillfortActivity : AppCompatActivity(), AnkoLogger {
@@ -76,6 +76,10 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
 
         hillfortLocation.setOnClickListener {
             info ("Set Location Pressed")
+        }
+
+        hillfortLocation.setOnClickListener {
+            startActivity (intentFor<MapActivity>())
         }
     }
 
