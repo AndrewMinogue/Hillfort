@@ -9,8 +9,8 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
-/app/src/java/assignment.hillfort.activities/MapActivity
-/app/src/manifests/AndroidManifest.xml
+/app/src/main/java/assignment.hillfort.activities/MapActivity.kt
+/app/src/main/AndroidManifest.xml
 .DS_Store
 /build
 /captures
