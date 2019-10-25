@@ -8,7 +8,12 @@ import kotlinx.android.synthetic.main.card_placemark.view.*
 import assignment.hillfort.R
 import assignment.hillfort.models.HillfortModel
 
-class HillfortAdapter constructor(private var placemarks: List<HillfortModel>) :
+
+interface HillfortListener {
+    fun onHillfortClick(hillfort: HillfortModel)
+}
+
+class HillfortAdapter constructor(private var hillforts: List<HillfortModel>, private val listener: HillfortListener) :
     RecyclerView.Adapter<HillfortAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
@@ -22,17 +27,18 @@ class HillfortAdapter constructor(private var placemarks: List<HillfortModel>) :
     }
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
-        val placemark = placemarks[holder.adapterPosition]
-        holder.bind(placemark)
+        val hillfort = hillforts[holder.adapterPosition]
+        holder.bind(hillfort,listener)
     }
 
-    override fun getItemCount(): Int = placemarks.size
+    override fun getItemCount(): Int = hillforts.size
 
     class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(hillfort: HillfortModel) {
+        fun bind(hillfort: HillfortModel, listener: HillfortListener) {
             itemView.hillfortTitle.text = hillfort.title
             itemView.description.text = hillfort.description
+            itemView.setOnClickListener { listener.onHillfortClick(hillfort) }
         }
     }
 }

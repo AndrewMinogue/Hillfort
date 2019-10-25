@@ -17,6 +17,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
 
     var hillfort = HillfortModel()
     lateinit var app: MainApp
+    var edit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,27 +25,52 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         app = application as MainApp
         toolbarAdd.title = title
         setSupportActionBar(toolbarAdd)
-        info("Placemark Activity started..")
+        info("Hillfort Activity started..")
 
+        if (intent.hasExtra("hillfort_edit")) {
+            edit = true
+            hillfort = intent.extras?.getParcelable<HillfortModel>("hillfort_edit")!!
+            hillfortTitle.setText(hillfort.title)
+            description.setText(hillfort.description)
+            btnAdd.setText(R.string.save_hillfort)
+        }
 
 
         btnAdd.setOnClickListener() {
             hillfort.title = hillfortTitle.text.toString()
             hillfort.description = description.text.toString()
-            if (hillfort.title.isNotEmpty()) {
-                app!!.hillforts.add(hillfort)
-                info("add Button Pressed: ${hillfort}")
-                for (i in app!!.hillforts.indices) {
-                    info("Hillforts[$i]:${app!!.hillforts[i]}")
+            if (hillfort.title.isEmpty()) {
+                toast(R.string.enter_hillfort_title)
+            } else {
+                if (edit) {
+                    app.hillforts.update(hillfort.copy())
+                } else {
+                    app.hillforts.create(hillfort.copy())
                 }
-                setResult(AppCompatActivity.RESULT_OK)
-                finish()
             }
-            else {
-                toast ("Please Enter a title")
-            }
+            info("add Button Pressed: $hillfortTitle")
+            setResult(AppCompatActivity.RESULT_OK)
+            finish()
         }
     }
+
+
+
+
+
+//        btnAdd.setOnClickListener() {
+//            hillfort.title = hillfortTitle.text.toString()
+//            hillfort.description = description.text.toString()
+//            if (hillfort.title.isNotEmpty()) {
+//                app.hillforts.create(hillfort.copy())
+//                info("add Button Pressed: ${hillfort}")
+//                setResult(AppCompatActivity.RESULT_OK)
+//                finish()
+//            } else {
+//                toast(R.string.enter_hillfort_title)
+//            }
+//        }
+//    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_hillfort, menu)
