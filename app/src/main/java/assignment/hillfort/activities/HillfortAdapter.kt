@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.card_placemark.view.*
 import assignment.hillfort.R
+import assignment.hillfort.helpers.readImageFromPath
 import assignment.hillfort.models.HillfortModel
 
 
@@ -38,6 +39,7 @@ class HillfortAdapter constructor(private var hillforts: List<HillfortModel>, pr
         fun bind(hillfort: HillfortModel, listener: HillfortListener) {
             itemView.hillfortTitle.text = hillfort.title
             itemView.description.text = hillfort.description
+            itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, hillfort.image))
             itemView.setOnClickListener { listener.onHillfortClick(hillfort) }
         }
     }

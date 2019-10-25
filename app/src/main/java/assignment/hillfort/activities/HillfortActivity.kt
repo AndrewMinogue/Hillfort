@@ -1,5 +1,6 @@
 package assignment.hillfort.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -10,7 +11,11 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.toast
 import assignment.hillfort.R
+import assignment.hillfort.helpers.readImage
+import assignment.hillfort.helpers.readImageFromPath
 import assignment.hillfort.models.HillfortModel
+import assignment.hillfort.helpers.showImagePicker
+
 
 
 class HillfortActivity : AppCompatActivity(), AnkoLogger {
@@ -18,6 +23,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
     var hillfort = HillfortModel()
     lateinit var app: MainApp
     var edit = false
+    val IMAGE_REQUEST = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +33,16 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         setSupportActionBar(toolbarAdd)
         info("Hillfort Activity started..")
 
-
         if (intent.hasExtra("hillfort_edit")) {
             edit = true
             hillfort = intent.extras?.getParcelable<HillfortModel>("hillfort_edit")!!
             hillfortTitle.setText(hillfort.title)
             description.setText(hillfort.description)
             btnAdd.setText(R.string.save_hillfort)
+            hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
+            if (hillfort.image != null) {
+                chooseImage.setText(R.string.change_hillfort_image)
+            }
         }
 
 
@@ -61,25 +70,28 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         }
 
 
+        chooseImage.setOnClickListener {
+            showImagePicker(this, IMAGE_REQUEST)
+        }
+
+        hillfortLocation.setOnClickListener {
+            info ("Set Location Pressed")
+        }
     }
 
 
-
-
-
-//        btnAdd.setOnClickListener() {
-//            hillfort.title = hillfortTitle.text.toString()
-//            hillfort.description = description.text.toString()
-//            if (hillfort.title.isNotEmpty()) {
-//                app.hillforts.create(hillfort.copy())
-//                info("add Button Pressed: ${hillfort}")
-//                setResult(AppCompatActivity.RESULT_OK)
-//                finish()
-//            } else {
-//                toast(R.string.enter_hillfort_title)
-//            }
-//        }
-//    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            IMAGE_REQUEST -> {
+                if (data != null) {
+                    hillfort.image = data.getData().toString()
+                    hillfortImage.setImageBitmap(readImage(this, resultCode, data))
+                    chooseImage.setText(R.string.change_hillfort_image)
+                }
+            }
+        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_hillfort, menu)
