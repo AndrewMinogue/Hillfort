@@ -27,6 +27,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         setSupportActionBar(toolbarAdd)
         info("Hillfort Activity started..")
 
+
         if (intent.hasExtra("hillfort_edit")) {
             edit = true
             hillfort = intent.extras?.getParcelable<HillfortModel>("hillfort_edit")!!
@@ -52,6 +53,14 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             setResult(AppCompatActivity.RESULT_OK)
             finish()
         }
+
+
+
+        chooseImage.setOnClickListener {
+            info ("Select image")
+        }
+
+
     }
 
 
