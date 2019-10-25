@@ -11,8 +11,8 @@
 /.idea/assetWizardSettings.xml
 .DS_Store
 /build
-/MapActivity.class
-/AndroidManifest.xml
+/app/src/java/assignment.hillfort.activities.MapActivity.class
+/app/src/manifests/AndroidManifest.xml
 /captures
 .externalNativeBuild
 .cxx
