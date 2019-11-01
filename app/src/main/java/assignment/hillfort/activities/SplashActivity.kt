@@ -17,7 +17,7 @@ class SplashActivity : Activity() {
 
         handler = Handler()
         handler.postDelayed({
-            val intent = Intent(this@SplashActivity, HillfortListActivity::class.java)
+            val intent = Intent(this@SplashActivity, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }, 3000)

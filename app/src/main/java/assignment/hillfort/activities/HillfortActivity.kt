@@ -16,6 +16,9 @@ import assignment.hillfort.helpers.readImageFromPath
 import assignment.hillfort.models.HillfortModel
 import assignment.hillfort.helpers.showImagePicker
 import assignment.hillfort.models.Location
+import kotlinx.android.synthetic.main.activity_hillfort.description
+import kotlinx.android.synthetic.main.activity_hillfort.hillfortTitle
+import kotlinx.android.synthetic.main.card_placemark.*
 import org.jetbrains.anko.intentFor
 
 
@@ -49,7 +52,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             }
         }
 
-
+        //Button Functionality
         btnAdd.setOnClickListener() {
             hillfort.title = hillfortTitle.text.toString()
             hillfort.description = description.text.toString()
@@ -67,6 +70,15 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             finish()
         }
 
+
+        //Button Functionality
+        btnDelete.setOnClickListener() {
+            app.hillforts.delete(hillfort)
+            setResult(AppCompatActivity.RESULT_OK)
+            info("Delete Button Pressed: $hillfortTitle")
+            finish()
+        }
+
         hillfortLocation.setOnClickListener {
             val location = Location(52.245696, -7.139102, 15f)
             if (hillfort.zoom != 0f) {
@@ -80,15 +92,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
 
         chooseImage.setOnClickListener {
             info ("Select image")
-        }
-
-
-        chooseImage.setOnClickListener {
             showImagePicker(this, IMAGE_REQUEST)
-        }
-
-        hillfortLocation.setOnClickListener {
-            startActivityForResult(intentFor<MapActivity>().putExtra("location", location), LOCATION_REQUEST)
         }
     }
 
