@@ -22,18 +22,32 @@
 
         <TextView
             android:id="@+id/hillfortTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="243dp"
+            android:layout_height="62dp"
             android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="22dp"
             android:layout_toEndOf="@+id/imageIcon"
-            android:textSize="30sp"/>
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/description"
+            android:layout_width="275dp"
+            android:layout_height="48dp"
+            android:layout_below="@id/hillfortTitle"
+            android:layout_toEndOf="@+id/imageIcon" />
+
+        <TextView
+            android:id="@+id/lat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/hillfortTitle"
-            android:layout_toEndOf="@+id/imageIcon"/>
+            android:layout_below="@id/description" />
+
+        <TextView
+            android:id="@+id/lang"
+            android:layout_width="144dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lat" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

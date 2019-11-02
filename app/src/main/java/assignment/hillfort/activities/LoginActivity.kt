@@ -4,33 +4,78 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import assignment.hillfort.R
+import assignment.hillfort.helpers.read
 import assignment.hillfort.main.MainApp
 import assignment.hillfort.models.UserModel
-import kotlinx.android.synthetic.main.activity_hillfort.*
-import kotlinx.android.synthetic.main.activity_hillfort.toolbarAdd
+import assignment.hillfort.models.user_JSON_FILE
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import org.jetbrains.anko.toast
 
 class LoginActivity : AppCompatActivity(), AnkoLogger {
 
+    var user = UserModel()
+    lateinit var app: MainApp
+    var loggedIn = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         info("Login Activity started..")
 
-
-
+        app = application as MainApp
+        loadUsers()
 
         Login.setOnClickListener() {
-            val intent = Intent(this, HillfortListActivity::class.java)
-            startActivity(intent)
+            var allUsers= app.users.findAll()
+
+            for(x in allUsers)
+                if(x.username == etLogin_username.text.toString() && x.password == etLogin_password.text.toString())
+                {
+                    user.username = x.username
+                    user.password = x.password
+                    loggedIn = true
+                }else{
+                    loggedIn = false
+                }
+
+            if(loggedIn == true)
+            {
+                val intent = Intent(this, HillfortListActivity::class.java)
+                startActivity(intent)
+            }
+            else{
+                toast(R.string.login_unsuccessful1)
+            }
+
         }
 
         loginRegister.setOnClickListener(){
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
+
         }
     }
+
+    private fun loadUsers() {
+        app.users.findAll()
+    }
 }
+
+
+
+
+//if(etLogin_username.text.toString() != user.username && etLogin_password.text.toString() != user.password){
+//                toast(R.string.login_unsuccessful)
+//            }
+////            else {
+////                if(etLogin_username.text.toString() == user.username && etLogin_password.text.toString() == user.username){
+////                    val intent = Intent(this, HillfortListActivity::class.java)
+////                    startActivity(intent)
+////                } else {
+////                    if(etLogin_username.text.toString().isEmpty() || etLogin_password.text.toString().isEmpty()){
+////                        toast(R.string.login_unsuccessful1)
+////                    }
+////                }
+////            }

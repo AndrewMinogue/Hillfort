@@ -69,7 +69,7 @@
 
 
                 <Button
-                    android:id="@+id/Login"
+                    android:id="@+id/Register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"

@@ -17,7 +17,7 @@ fun showImagePicker(parent: Activity, id: Int) {
         intent.action = Intent.ACTION_OPEN_DOCUMENT
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         val chooser = Intent.createChooser(intent, R.string.select_hillfort_image.toString())
-        parent.startActivityForResult(chooser, id)
+        parent.startActivityForResult(chooser,  id)
     }
 
 
