@@ -177,6 +177,11 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp"/>
 
+                <CheckBox android:id="@+id/checkbox_visited"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hillfort_visited" />
+
                 <Button
                     android:id="@+id/btnAdd"
                     android:layout_width="match_parent"

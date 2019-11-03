@@ -43,16 +43,29 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         setSupportActionBar(toolbarAdd)
         info("Hillfort Activity started..")
 
+        //Edit Functionality For hllfort
         if (intent.hasExtra("hillfort_edit")) {
             edit = true
             hillfort = intent.extras?.getParcelable<HillfortModel>("hillfort_edit")!!
             hillfortTitle.setText(hillfort.title)
             description.setText(hillfort.description)
-            btnAdd.setText(R.string.save_hillfort)
             hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
-            if (hillfort.image != null) {
+            hillfortImage1.setImageBitmap(readImageFromPath(this, hillfort.image1))
+            hillfortImage2.setImageBitmap(readImageFromPath(this, hillfort.image2))
+            hillfortImage3.setImageBitmap(readImageFromPath(this, hillfort.image3))
+            if (hillfort.image.isNotEmpty()) {
                 chooseImage.setText(R.string.change_hillfort_image)
             }
+            if (hillfort.image1.isNotEmpty()) {
+                chooseImage1.setText(R.string.change_hillfort_image)
+            }
+            if (hillfort.image2.isNotEmpty()) {
+                chooseImage2.setText(R.string.change_hillfort_image)
+            }
+            if (hillfort.image3.isNotEmpty()) {
+                chooseImage3.setText(R.string.change_hillfort_image)
+            }
+            btnAdd.setText(R.string.save_hillfort)
         }
 
         //Button Functionality

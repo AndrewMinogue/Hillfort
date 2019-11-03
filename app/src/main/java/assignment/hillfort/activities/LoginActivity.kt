@@ -25,30 +25,25 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
         info("Login Activity started..")
 
         app = application as MainApp
-        loadUsers()
 
         Login.setOnClickListener() {
-            var allUsers= app.users.findAll()
+            var allUsers = app.users.findAll()
 
-            for(x in allUsers)
-                if(x.username == etLogin_username.text.toString() && x.password == etLogin_password.text.toString())
-                {
+            for (x in allUsers) {
+                if (x.username == etLogin_username.text.toString() && x.password == etLogin_password.text.toString()) {
                     user.username = x.username
                     user.password = x.password
                     loggedIn = true
-                }else{
+                    val intent = Intent(this, HillfortListActivity::class.java)
+                    startActivity(intent)
+                } else {
                     loggedIn = false
                 }
-
-            if(loggedIn == true)
-            {
-                val intent = Intent(this, HillfortListActivity::class.java)
-                startActivity(intent)
             }
-            else{
+
+            if(etLogin_username.text.toString().isEmpty() || etLogin_password.text.toString().isEmpty()){
                 toast(R.string.login_unsuccessful1)
             }
-
         }
 
         loginRegister.setOnClickListener(){
@@ -58,24 +53,4 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
-    private fun loadUsers() {
-        app.users.findAll()
-    }
 }
-
-
-
-
-//if(etLogin_username.text.toString() != user.username && etLogin_password.text.toString() != user.password){
-//                toast(R.string.login_unsuccessful)
-//            }
-////            else {
-////                if(etLogin_username.text.toString() == user.username && etLogin_password.text.toString() == user.username){
-////                    val intent = Intent(this, HillfortListActivity::class.java)
-////                    startActivity(intent)
-////                } else {
-////                    if(etLogin_username.text.toString().isEmpty() || etLogin_password.text.toString().isEmpty()){
-////                        toast(R.string.login_unsuccessful1)
-////                    }
-////                }
-////            }
