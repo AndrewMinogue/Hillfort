@@ -1,10 +1,12 @@
 package assignment.hillfort.activities
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.annotation.RequiresApi
 import assignment.hillfort.main.MainApp
 import kotlinx.android.synthetic.main.activity_hillfort.*
 import org.jetbrains.anko.AnkoLogger
@@ -18,8 +20,9 @@ import assignment.hillfort.helpers.showImagePicker
 import assignment.hillfort.models.Location
 import kotlinx.android.synthetic.main.activity_hillfort.description
 import kotlinx.android.synthetic.main.activity_hillfort.hillfortTitle
-import kotlinx.android.synthetic.main.card_placemark.*
 import org.jetbrains.anko.intentFor
+import java.time.LocalDateTime
+
 
 
 class HillfortActivity : AppCompatActivity(), AnkoLogger {
@@ -182,6 +185,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.item_cancel -> {
@@ -204,9 +208,13 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
                 hillfort.notes = AdditonalNotes.text.toString()
                 if(checkbox_visited.isChecked){
                     hillfort.visited = true
+                    val current = LocalDateTime.now()
+                    val date = current.toString()
+                    Date.setText(date)
                 } else if(checkbox_visited.isChecked == false){
                     hillfort.visited = false
                 }
+
 
                 if (hillfort.title.isEmpty()) {
                     toast(R.string.enter_hillfort_title)

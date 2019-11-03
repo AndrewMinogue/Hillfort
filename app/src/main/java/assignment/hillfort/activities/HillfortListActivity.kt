@@ -70,8 +70,8 @@ class HillfortListActivity : AppCompatActivity(),HillfortListener {
     }
 
 
-    //We need to find all hillforts that only contain the user ID of the user that is logged in
-    //so we need to create a userID field in Hillforts? that will contain the id of the user when logged in ?
+    //Need to use the findall() function but filter the retrieved array to only contain the hillforts that have the same user ID
+    //Create a userID field in Hillforts? that will contain the id of the user when logged in ?
     private fun loadHillforts() {
         showHillforts(app.hillforts.findAll())
     }

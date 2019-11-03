@@ -23,10 +23,10 @@
 
     <string name="hillfortNumberVisited">Number of hillforts Visited</string>
     <string name="hillfortNumber">Number of hillforts</string>
-    <string name="login_unsuccessful1">Please enter a username or password</string>
+    <string name="login_unsuccessful1">Please enter a email or password</string>
     <string name="login_unsuccessful">login unsuccessful</string>
     <string name="register_successful">Registration successful</string>
-    <string name="login_username">Username</string>
+    <string name="login_username">Email</string>
     <string name="login_password">Password</string>
     <string name="button_login"> Login </string>
     <string name="login_register"> Register Here </string>
@@ -36,4 +36,5 @@
     <string name="latString"> Latitude: </string>
     <string name="longString"> Longitude: </string>
     <string name="visitedString"> Visited </string>
+    <string name="date"> Date Visited:</string>
 </resources>
