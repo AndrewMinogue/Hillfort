@@ -14,11 +14,7 @@ import org.jetbrains.anko.info
 
 class SettingsActivity : AppCompatActivity(), AnkoLogger {
 
-
-
     lateinit var app: MainApp
-    var edit = false
-    var user = UserModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,13 +26,13 @@ class SettingsActivity : AppCompatActivity(), AnkoLogger {
 
 
 
-//        var allUsers= app.users.findAll()
-//
-//        for(x in allUsers)
-//            if(x.loggedIn == true) {
-//                etLogin_username1.setText(x.email)
-//                etLogin_password1.setText(x.password)
-//            }
+       var allUsers= app.users.findAll()
+
+        for(x in allUsers)
+            if(x.loggedIn == true) {
+                etLogin_username1.setText(x.username)
+                etLogin_password1.setText(x.password)
+            }
     }
 
 

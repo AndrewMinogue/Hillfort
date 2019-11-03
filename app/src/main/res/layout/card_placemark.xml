@@ -48,5 +48,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/lat" />
 
+        <CheckBox
+            android:id="@+id/visited"
+            android:layout_width="144dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lang" />
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

@@ -17,7 +17,6 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
 
     var user = UserModel()
     lateinit var app: MainApp
-    var loggedIn = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,17 +28,19 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
         Login.setOnClickListener() {
             var allUsers = app.users.findAll()
 
-            for (x in allUsers) {
+            for (x in allUsers)
                 if (x.username == etLogin_username.text.toString() && x.password == etLogin_password.text.toString()) {
                     user.username = x.username
                     user.password = x.password
-                    loggedIn = true
+                    x.loggedIn = true
+                    user.loggedIn = x.loggedIn
+                    user.loggedIn = true
+
+                    app.users.update(user.copy())
                     val intent = Intent(this, HillfortListActivity::class.java)
                     startActivity(intent)
-                } else {
-                    loggedIn = false
                 }
-            }
+
 
             if(etLogin_username.text.toString().isEmpty() || etLogin_password.text.toString().isEmpty()){
                 toast(R.string.login_unsuccessful1)

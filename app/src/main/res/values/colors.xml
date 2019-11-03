@@ -6,4 +6,6 @@
     <color name="splashBackground">#008577</color>
     <color name="blue">#FFFF</color>
     <color name="colorDelete">#ff0000</color>
+    <color name="black">#000000</color>
+
 </resources>

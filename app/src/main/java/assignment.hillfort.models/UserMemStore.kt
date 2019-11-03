@@ -13,6 +13,7 @@ class UserMemStore : UserStore, AnkoLogger {
     }
 
     override fun create(user: UserModel) {
+        user.id = generateRandomId()
         users.add(user)
         logAll()
     }
@@ -20,4 +21,15 @@ class UserMemStore : UserStore, AnkoLogger {
     fun logAll() {
         users.forEach { info("${it}") }
     }
+
+    override fun update(user: UserModel) {
+        var foundUser: UserModel? = users.find { p -> p.id == user.id }
+        if (foundUser != null) {
+            foundUser.username = user.username
+            foundUser.password = user.password
+            foundUser.loggedIn = user.loggedIn
+            logAll()
+        }
+    }
+
 }

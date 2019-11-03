@@ -41,7 +41,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/AddImages"
+                    android:id="@+id/Settings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="settings"
@@ -52,11 +52,15 @@
                     android:textSize="14sp" />
 
 
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login_username"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
-
-
-
-                <EditText
+                <TextView
                     android:id="@+id/etLogin_username1"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -69,13 +73,23 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
-                <EditText
+
+                <TextView
+                    android:id="@+id/password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login_password"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
                     android:id="@+id/etLogin_password1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:hint="@string/login_password"
-                    android:inputType="textPassword"
+                    android:inputType="text"
                     android:maxLength="25"
                     android:maxLines="1"
                     android:padding="8dp"

@@ -11,11 +11,14 @@ import assignment.hillfort.R
 import assignment.hillfort.main.MainApp
 import org.jetbrains.anko.startActivityForResult
 import assignment.hillfort.models.HillfortModel
+import assignment.hillfort.models.UserModel
+import kotlinx.android.synthetic.main.settings.*
 import org.jetbrains.anko.intentFor
 
 class HillfortListActivity : AppCompatActivity(),HillfortListener {
 
     lateinit var app: MainApp
+    var user = UserModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +41,22 @@ class HillfortListActivity : AppCompatActivity(),HillfortListener {
         when (item?.itemId) {
             R.id.item_add -> startActivityForResult<HillfortActivity>(0)
         }
+        if (item?.itemId == R.id.item_logout) {
+            var allUsers= app.users.findAll()
+
+            for(x in allUsers)
+                if(x.loggedIn == true) {
+                    user.username = x.username
+                    user.password = x.password
+                    x.loggedIn = false
+                    user.loggedIn = x.loggedIn
+                    app.users.update(user.copy())
+                }
+            startActivityForResult<LoginActivity>(0)
+        }
+        when (item?.itemId) {
+            R.id.item_settings -> startActivityForResult<SettingsActivity>(0)
+        }
         return super.onOptionsItemSelected(item)
     }
     override fun onHillfortClick(hillfort: HillfortModel) {
@@ -50,6 +69,9 @@ class HillfortListActivity : AppCompatActivity(),HillfortListener {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
+
+    //We need to find all hillforts that only contain the user ID of the user that is logged in
+    //so we need to create a userID field in Hillforts? that will contain the id of the user when logged in ?
     private fun loadHillforts() {
         showHillforts(app.hillforts.findAll())
     }

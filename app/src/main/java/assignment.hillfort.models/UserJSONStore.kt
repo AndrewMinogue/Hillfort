@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken
 import org.jetbrains.anko.AnkoLogger
 import assignment.hillfort.helpers.*
 import java.util.*
+import org.jetbrains.anko.toast
 
 
 val user_JSON_FILE = "users1.json"
@@ -31,7 +32,18 @@ class UserJSONStore : UserStore, AnkoLogger {
     }
 
 
+    override fun update(user: UserModel) {
+        var foundUser: UserModel? = users.find { p -> p.id == user.id }
+        if (foundUser != null) {
+            foundUser.username = user.username
+            foundUser.password = user.password
+            foundUser.loggedIn = user.loggedIn
+            serialize()
+        }
+    }
+
     override fun create(user: UserModel) {
+        user.id = generateRandomId()
         users.add(user)
         serialize()
     }

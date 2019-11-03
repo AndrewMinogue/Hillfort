@@ -14,6 +14,7 @@
     <string name="change_hillfort_image">Change hillfort image</string>
     <string name="save_hillfort"> Save Hillfort</string>
     <string name="menu_cancelHillfort">Cancel</string>
+    <string name="menu_deleteHillfort">Delete</string>
     <string name="title_activity_map"> Map </string>
     <string name="addImage"> Click the buttons to add images </string>
 

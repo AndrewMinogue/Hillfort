@@ -8,6 +8,9 @@ import kotlinx.android.synthetic.main.card_placemark.view.*
 import assignment.hillfort.R
 import assignment.hillfort.helpers.readImageFromPath
 import assignment.hillfort.models.HillfortModel
+import kotlinx.android.synthetic.main.activity_hillfort.view.*
+import kotlinx.android.synthetic.main.card_placemark.view.description
+import kotlinx.android.synthetic.main.card_placemark.view.hillfortTitle
 
 
 interface HillfortListener {
@@ -40,7 +43,6 @@ class HillfortAdapter constructor(private var hillforts: List<HillfortModel>, pr
 
             var latDouble = hillfort.lat.toString()
             var langDouble = hillfort.lng.toString()
-
 
 
             itemView.hillfortTitle.text = hillfort.title

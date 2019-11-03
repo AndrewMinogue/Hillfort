@@ -65,6 +65,13 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             if (hillfort.image3.isNotEmpty()) {
                 chooseImage3.setText(R.string.change_hillfort_image)
             }
+            if(hillfort.visited == true){
+                checkbox_visited.setChecked(true)
+                hillfort.visited = true
+            }else if(hillfort.visited == false){
+                hillfort.visited = false
+                checkbox_visited.setChecked(false)
+            }
             btnAdd.setText(R.string.save_hillfort)
         }
 
@@ -72,6 +79,12 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         btnAdd.setOnClickListener() {
             hillfort.title = hillfortTitle.text.toString()
             hillfort.description = description.text.toString()
+            if(checkbox_visited.isChecked){
+                hillfort.visited = true
+            } else if(checkbox_visited.isChecked == false){
+                hillfort.visited = false
+            }
+
             if (hillfort.title.isEmpty()) {
                 toast(R.string.enter_hillfort_title)
             } else {
@@ -177,6 +190,14 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.item_cancel -> {
+                finish()
+            }
+        }
+        when (item?.itemId) {
+            R.id.item_delete -> {
+                app.hillforts.delete(hillfort)
+                setResult(AppCompatActivity.RESULT_OK)
+                info("Delete Button Pressed: $hillfortTitle")
                 finish()
             }
         }
