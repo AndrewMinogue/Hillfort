@@ -49,6 +49,8 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             hillfort = intent.extras?.getParcelable<HillfortModel>("hillfort_edit")!!
             hillfortTitle.setText(hillfort.title)
             description.setText(hillfort.description)
+            AdditonalNotes.setText(hillfort.notes)
+            hillfort.notes = description.text.toString()
             hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
             hillfortImage1.setImageBitmap(readImageFromPath(this, hillfort.image1))
             hillfortImage2.setImageBitmap(readImageFromPath(this, hillfort.image2))
@@ -75,10 +77,11 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             btnAdd.setText(R.string.save_hillfort)
         }
 
-        //Button Functionality
+       // Button Functionality
         btnAdd.setOnClickListener() {
             hillfort.title = hillfortTitle.text.toString()
             hillfort.description = description.text.toString()
+            hillfort.notes = AdditonalNotes.text.toString()
             if(checkbox_visited.isChecked){
                 hillfort.visited = true
             } else if(checkbox_visited.isChecked == false){
@@ -99,15 +102,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             finish()
         }
 
-
-        //Button Functionality
-        btnDelete.setOnClickListener() {
-            app.hillforts.delete(hillfort)
-            setResult(AppCompatActivity.RESULT_OK)
-            info("Delete Button Pressed: $hillfortTitle")
-            finish()
-        }
-
+        //marker needs to be clicked again to show location.
         hillfortLocation.setOnClickListener {
             val location = Location(52.245696, -7.139102, 15f)
             if (hillfort.zoom != 0f) {
@@ -198,6 +193,32 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
                 app.hillforts.delete(hillfort)
                 setResult(AppCompatActivity.RESULT_OK)
                 info("Delete Button Pressed: $hillfortTitle")
+                finish()
+            }
+        }
+
+        when (item?.itemId) {
+            R.id.item_add1 -> {
+                hillfort.title = hillfortTitle.text.toString()
+                hillfort.description = description.text.toString()
+                hillfort.notes = AdditonalNotes.text.toString()
+                if(checkbox_visited.isChecked){
+                    hillfort.visited = true
+                } else if(checkbox_visited.isChecked == false){
+                    hillfort.visited = false
+                }
+
+                if (hillfort.title.isEmpty()) {
+                    toast(R.string.enter_hillfort_title)
+                } else {
+                    if (edit) {
+                        app.hillforts.update(hillfort.copy())
+                    } else {
+                        app.hillforts.create(hillfort.copy())
+                    }
+                }
+                info("add Button Pressed: $hillfortTitle")
+                setResult(AppCompatActivity.RESULT_OK)
                 finish()
             }
         }

@@ -10,6 +10,7 @@
     <string name="select_hillfort_image">Select hillfort image</string>
     <string name="hint_hillfortTitle">Hillfort Title</string>
     <string name="hint_hillfortDescription">Description </string>
+    <string name="hint_hillfortNotes">Additonal Notes</string>
     <string name="enter_hillfort_title"> Please enter a Hillfort Title </string>
     <string name="change_hillfort_image">Change hillfort image</string>
     <string name="save_hillfort"> Save Hillfort</string>
@@ -19,6 +20,9 @@
     <string name="addImage"> Click the buttons to add images </string>
 
 
+
+    <string name="hillfortNumberVisited">Number of hillforts Visited</string>
+    <string name="hillfortNumber">Number of hillforts</string>
     <string name="login_unsuccessful1">Please enter a username or password</string>
     <string name="login_unsuccessful">login unsuccessful</string>
     <string name="register_successful">Registration successful</string>
@@ -29,4 +33,7 @@
     <string name="button_register"> Register </string>
     <string name="enter_register_detail"> Please fill out both fields</string>
     <string name="menu_mapup"> UP </string>
+    <string name="latString"> Latitude: </string>
+    <string name="longString"> Longitude: </string>
+    <string name="visitedString"> Visited </string>
 </resources>

@@ -25,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:textColor="@color/black"
             android:layout_toEndOf="@+id/imageIcon"
             android:textSize="30sp"/>
 
@@ -32,27 +33,56 @@
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_below="@id/hillfortTitle"
             android:layout_toEndOf="@+id/imageIcon"/>
+
+        <TextView
+            android:id="@+id/latString"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/latString"
+            android:textColor="@color/black"
+            android:paddingTop="3dp"
+            android:layout_below="@id/description" />
 
         <TextView
             android:id="@+id/lat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="3dp"
-            android:layout_below="@id/description" />
+            android:layout_below="@id/latString" />
+
+        <TextView
+            android:id="@+id/longString"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/longString"
+            android:textColor="@color/black"
+            android:paddingTop="3dp"
+            android:layout_below="@id/lat" />
 
         <TextView
             android:id="@+id/lang"
             android:layout_width="144dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/lat" />
+            android:layout_below="@id/longString" />
+
+        <TextView
+            android:id="@+id/visitedString"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/visitedString"
+            android:textColor="@color/black"
+            android:paddingTop="3dp"
+            android:layout_below="@id/lang" />
+
 
         <CheckBox
             android:id="@+id/visited"
             android:layout_width="144dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/lang" />
+            android:layout_below="@id/visitedString" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

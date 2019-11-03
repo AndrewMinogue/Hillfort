@@ -56,8 +56,9 @@
                     android:id="@+id/email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/login_username"
+                    android:text="@string/login_username"
                     android:textColor="@color/black"
+                    android:padding="8dp"
                     android:textSize="14sp" />
 
                 <TextView
@@ -78,7 +79,7 @@
                     android:id="@+id/password"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/login_password"
+                    android:text="@string/login_password"
                     android:padding="8dp"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
@@ -95,6 +96,49 @@
                     android:padding="8dp"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
+
+
+
+                <TextView
+                    android:id="@+id/TVhillfortCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/hillfortNumber"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/hillfortCount1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+
+
+                <TextView
+                    android:id="@+id/TVvisitedCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/hillfortNumberVisited"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/visitedCount1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
 
             </LinearLayout>
         </ScrollView>

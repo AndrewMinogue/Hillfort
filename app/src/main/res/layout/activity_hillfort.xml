@@ -71,6 +71,20 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
+                <EditText
+                    android:id="@+id/AdditonalNotes"
+                    android:layout_width="391dp"
+                    android:layout_height="124dp"
+                    android:layout_margin="8dp"
+                    android:hint="@string/hint_hillfortNotes"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp" />
+
 
                 <CheckBox android:id="@+id/checkbox_visited"
                     android:layout_width="wrap_content"
@@ -198,18 +212,18 @@
                     android:textSize="16sp" />
 
 
-                <Button
-                    android:id="@+id/btnDelete"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="@color/colorDelete"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:stateListAnimator="@null"
-                    android:text="@string/button_deleteHillfort"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp" />
+<!--                <Button-->
+<!--                    android:id="@+id/btnDelete"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="16dp"-->
+<!--                    android:background="@color/colorDelete"-->
+<!--                    android:paddingTop="8dp"-->
+<!--                    android:paddingBottom="8dp"-->
+<!--                    android:stateListAnimator="@null"-->
+<!--                    android:text="@string/button_deleteHillfort"-->
+<!--                    android:textColor="@color/colorPrimary"-->
+<!--                    android:textSize="16sp" />-->
 
 
             </LinearLayout>

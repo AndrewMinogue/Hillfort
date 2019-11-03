@@ -33,6 +33,36 @@ class SettingsActivity : AppCompatActivity(), AnkoLogger {
                 etLogin_username1.setText(x.username)
                 etLogin_password1.setText(x.password)
             }
+
+
+
+
+        //stats for total number of hillforts
+        var hillfortNumber: Long = 0
+        var allHillforts= app.hillforts.findAll()
+
+        for(x in allHillforts)
+            if(x.title.isNotEmpty()) {
+                hillfortNumber++
+                var hillfortNumber12= hillfortNumber.toString()
+                hillfortCount1.setText(hillfortNumber12)
+            }
+
+        //stats for total number of hillforts visited
+        var visitedNumber: Long = 0
+
+        for(x in allHillforts)
+        if(x.visited == true){
+            visitedNumber++
+            var hillfortNumberVisited= visitedNumber.toString()
+            visitedCount1.setText(hillfortNumberVisited)
+
+        }
+
+
+
+
+
     }
 
 
