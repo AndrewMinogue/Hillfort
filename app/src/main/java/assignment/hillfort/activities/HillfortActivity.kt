@@ -38,6 +38,10 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
     val LOCATION_REQUEST = 2
     var location = Location(52.245696, -7.139102, 15f)
 
+
+    //When using the now function for date it said i didn't have the right api version and would only work with this
+    //If app is not working take this line above onCreate out, however datevisited will not work.
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hillfort)
@@ -53,7 +57,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             hillfortTitle.setText(hillfort.title)
             description.setText(hillfort.description)
             AdditonalNotes.setText(hillfort.notes)
-            hillfort.notes = description.text.toString()
+            hillfort.notes = AdditonalNotes.text.toString()
             hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
             hillfortImage1.setImageBitmap(readImageFromPath(this, hillfort.image1))
             hillfortImage2.setImageBitmap(readImageFromPath(this, hillfort.image2))
@@ -73,6 +77,10 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             if(hillfort.visited == true){
                 checkbox_visited.setChecked(true)
                 hillfort.visited = true
+                val current = LocalDateTime.now()
+                val date = current.toString()
+                Date.setText(date)
+                hillfort.datevisited = date
             }else if(hillfort.visited == false){
                 hillfort.visited = false
                 checkbox_visited.setChecked(false)
@@ -80,13 +88,17 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             btnAdd.setText(R.string.save_hillfort)
         }
 
-       // Button Functionality
+        // Button Functionality
         btnAdd.setOnClickListener() {
             hillfort.title = hillfortTitle.text.toString()
             hillfort.description = description.text.toString()
             hillfort.notes = AdditonalNotes.text.toString()
             if(checkbox_visited.isChecked){
                 hillfort.visited = true
+                val current = LocalDateTime.now()
+                val date = current.toString()
+                Date.setText(date)
+                hillfort.datevisited = date
             } else if(checkbox_visited.isChecked == false){
                 hillfort.visited = false
             }
@@ -136,6 +148,8 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
 
     }
 
+    //When using the now function for date it said i didn't have the right api version and would only work with this
+    //If app is not working take this line above onActivityResult out, however datevisited will not work.
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -211,6 +225,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
                     val current = LocalDateTime.now()
                     val date = current.toString()
                     Date.setText(date)
+                    hillfort.datevisited = date
                 } else if(checkbox_visited.isChecked == false){
                     hillfort.visited = false
                 }
