@@ -14,6 +14,7 @@ import assignment.hillfort.models.HillfortModel
 import assignment.hillfort.models.UserModel
 import kotlinx.android.synthetic.main.settings.*
 import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.startActivity
 
 class HillfortListActivity : AppCompatActivity(),HillfortListener {
 
@@ -40,6 +41,7 @@ class HillfortListActivity : AppCompatActivity(),HillfortListener {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.item_add -> startActivityForResult<HillfortActivity>(0)
+            R.id.item_map -> startActivity<HillfortMapsActivity>()
         }
         if (item?.itemId == R.id.item_logout) {
             var allUsers= app.users.findAll()
