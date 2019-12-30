@@ -1,6 +1,8 @@
 package assignment.hillfort.views.hillfort.hillfort
 
 import android.content.Intent
+import assignment.hillfort.helpers.checkLocationPermissions
+import assignment.hillfort.helpers.isPermissionGranted
 import assignment.hillfort.views.hillfort.editlocation.EditLocationView
 import assignment.hillfort.helpers.showImagePicker
 import assignment.hillfort.main.MainApp
@@ -33,17 +35,16 @@ class HillfortPresenter(view: BaseView): BasePresenter(view) {
             edit = true
             hillfort = view.intent.extras?.getParcelable<HillfortModel>("hillfort_edit")!!
             view.showHillfort(hillfort)
-        }else {
-            hillfort.lat = defaultLocation.lat
-            hillfort.lng = defaultLocation.lng
+        } else {
+            if (checkLocationPermissions(view)) {
+                // todo get the current location
+            }
         }
     }
 
 
-    fun doConfigureMap(m: GoogleMap) {
-        map = m
-        locationUpdate(hillfort.lat, hillfort.lng)
-    }
+
+
 
     fun locationUpdate(lat: Double, lng: Double) {
         hillfort.lat = lat
@@ -56,6 +57,22 @@ class HillfortPresenter(view: BaseView): BasePresenter(view) {
         map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(hillfort.lat, hillfort.lng), hillfort.zoom))
         view?.showHillfort(hillfort)
     }
+
+    fun doConfigureMap(m: GoogleMap) {
+         map = m
+         locationUpdate(hillfort.lat, hillfort.lng)
+    }
+
+    override fun doRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+       if (isPermissionGranted(requestCode, grantResults)) {
+           // todo get the current location
+       } else {
+           // permissions denied, so use the default location
+           locationUpdate(defaultLocation.lat, defaultLocation.lng)
+       }
+    }
+
+
 
     fun doAddOrSave(title: String, description: String, additionalnotes : String) {
         hillfort.title = title
