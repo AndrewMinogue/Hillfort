@@ -1,4 +1,4 @@
-package assignment.hillfort.activities
+package assignment.hillfort.views.hillfort.map
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +14,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_hillfort_maps.*
 import kotlinx.android.synthetic.main.content_hillfort_maps.*
 
-class HillfortMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
+class HillfortMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
 
     lateinit var map: GoogleMap
     lateinit var app: MainApp

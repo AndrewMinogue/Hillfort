@@ -4,10 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import assignment.hillfort.R
-import assignment.hillfort.helpers.read
 import assignment.hillfort.main.MainApp
 import assignment.hillfort.models.UserModel
-import assignment.hillfort.models.user_JSON_FILE
+import assignment.hillfort.views.hillfort.hillfortlist.HillfortListView
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -37,7 +36,7 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
                     user.loggedIn = true
 
                     app.users.update(user.copy())
-                    val intent = Intent(this, HillfortListActivity::class.java)
+                    val intent = Intent(this, HillfortListView::class.java)
                     startActivity(intent)
                 }
 

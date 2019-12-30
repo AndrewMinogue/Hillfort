@@ -1,7 +1,5 @@
-package assignment.hillfort.activities
+package assignment.hillfort.views.hillfort.editlocation
 
-import android.app.Activity
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -15,20 +13,22 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import assignment.hillfort.R
 import assignment.hillfort.models.Location
+import assignment.hillfort.views.hillfort.editlocation.EditLocationPresenter
 import com.google.android.gms.maps.model.Marker
-import kotlinx.android.synthetic.main.activity_hillfort.*
 import kotlinx.android.synthetic.main.activity_map.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
-class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener, AnkoLogger {
+class EditLocationView : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener, AnkoLogger {
 
     private lateinit var Map: GoogleMap
     var location = Location()
+    lateinit var presenter: EditLocationPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
+        presenter = EditLocationPresenter(this)
         location = intent.extras?.getParcelable<Location>("location")!!
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
@@ -53,41 +53,26 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerD
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
-        val loc = LatLng(location.lat, location.lng)
-        marker.setSnippet("GPS : " + loc.toString())
+        presenter.doUpdateMarker(marker)
         return false
     }
 
     override fun onMarkerDragStart(marker: Marker) {
-        location.lat = marker.position.latitude
-        location.lng = marker.position.longitude
-        location.zoom = Map.cameraPosition.zoom
-        val loc = LatLng(location.lat, location.lng)
-        marker.setSnippet("GPS : " + loc.toString())
+        presenter.doUpdateLocation(marker.position.latitude, marker.position.longitude, Map.cameraPosition.zoom)
+        presenter.doUpdateMarker(marker)
     }
 
     override fun onMarkerDrag(marker: Marker) {
-        location.lat = marker.position.latitude
-        location.lng = marker.position.longitude
-        location.zoom = Map.cameraPosition.zoom
-        val loc = LatLng(location.lat, location.lng)
-        marker.setSnippet("GPS : " + loc.toString())
+        presenter.doUpdateLocation(marker.position.latitude, marker.position.longitude, Map.cameraPosition.zoom)
+        presenter.doUpdateMarker(marker)
     }
 
     override fun onMarkerDragEnd(marker: Marker) {
-        location.lat = marker.position.latitude
-        location.lng = marker.position.longitude
-        location.zoom = Map.cameraPosition.zoom
-        val loc = LatLng(location.lat, location.lng)
-        marker.setSnippet("GPS : " + loc.toString())
+        presenter.doUpdateLocation(marker.position.latitude, marker.position.longitude, Map.cameraPosition.zoom)
     }
 
     override fun onBackPressed() {
-        val resultIntent = Intent()
-        resultIntent.putExtra("location", location)
-        setResult(Activity.RESULT_OK, resultIntent)
-        finish()
-        super.onBackPressed()
+        presenter.doOnBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -98,12 +83,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerD
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.item_up -> {
-                val resultIntent = Intent()
-                resultIntent.putExtra("location", location)
-                setResult(Activity.RESULT_OK, resultIntent)
-                finish()
-                super.onBackPressed()
-                finish()
+                presenter.doOnBackPressed()
             }
         }
         return super.onOptionsItemSelected(item)

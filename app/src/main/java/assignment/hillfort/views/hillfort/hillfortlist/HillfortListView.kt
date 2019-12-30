@@ -1,4 +1,4 @@
-package assignment.hillfort.activities
+package assignment.hillfort.views.hillfort.hillfortlist
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,40 +8,47 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import assignment.hillfort.R
+import assignment.hillfort.activities.*
 import assignment.hillfort.main.MainApp
 import org.jetbrains.anko.startActivityForResult
 import assignment.hillfort.models.HillfortModel
 import assignment.hillfort.models.UserModel
-import kotlinx.android.synthetic.main.settings.*
-import org.jetbrains.anko.intentFor
+import assignment.hillfort.views.hillfort.base.BaseView
+import assignment.hillfort.views.hillfort.hillfort.HillfortView
 import org.jetbrains.anko.startActivity
 
-class HillfortListActivity : AppCompatActivity(),HillfortListener {
+class HillfortListView: BaseView(), HillfortListener {
 
-    lateinit var app: MainApp
     var user = UserModel()
+    lateinit var presenter: HillfortListPresenter
+    lateinit var app: MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hillfort_list)
-        app = application as MainApp
-
         toolbar.title = title
         setSupportActionBar(toolbar)
 
+        presenter = initPresenter(HillfortListPresenter(this)) as HillfortListPresenter
+
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        loadHillforts()
+        presenter.loadHillforts()
     }
+
+    override fun showHillforts(hillforts: List<HillfortModel>) {
+        recyclerView.adapter = HillfortAdapter(hillforts, this)
+        recyclerView.adapter?.notifyDataSetChanged()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
     }
-
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.item_add -> startActivityForResult<HillfortActivity>(0)
-            R.id.item_map -> startActivity<HillfortMapsActivity>()
+            R.id.item_add -> presenter.doAddHillfort()
+            R.id.item_map -> presenter.doShowHillfortsMap()
         }
         if (item?.itemId == R.id.item_logout) {
             var allUsers= app.users.findAll()
@@ -61,26 +68,16 @@ class HillfortListActivity : AppCompatActivity(),HillfortListener {
         }
         return super.onOptionsItemSelected(item)
     }
+
+
     override fun onHillfortClick(hillfort: HillfortModel) {
-        startActivityForResult(intentFor<HillfortActivity>().putExtra("hillfort_edit", hillfort), 0)
+        presenter.doEditHillfort(hillfort)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        loadHillforts()
+        presenter.loadHillforts()
         recyclerView.adapter?.notifyDataSetChanged()
         super.onActivityResult(requestCode, resultCode, data)
-    }
-
-
-    //Need to use the findall() function but filter the retrieved array to only contain the hillforts that have the same user ID
-    //Create a userID field in Hillforts? that will contain the id of the user when logged in ?
-    private fun loadHillforts() {
-        showHillforts(app.hillforts.findAll())
-    }
-
-    fun showHillforts (hillforts: List<HillfortModel>) {
-        recyclerView.adapter = HillfortAdapter(hillforts, this)
-        recyclerView.adapter?.notifyDataSetChanged()
     }
 }
 

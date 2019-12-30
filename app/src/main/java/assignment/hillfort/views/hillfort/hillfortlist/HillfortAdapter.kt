@@ -1,4 +1,4 @@
-package assignment.hillfort.activities
+package assignment.hillfort.views.hillfort.hillfortlist
 
 import android.view.LayoutInflater
 import android.view.View

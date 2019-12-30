@@ -1,24 +1,23 @@
-package assignment.hillfort.activities
+package assignment.hillfort.views.hillfort.hillfort
 
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.annotation.RequiresApi
 import kotlinx.android.synthetic.main.activity_hillfort.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
 import assignment.hillfort.R
 import assignment.hillfort.helpers.readImageFromPath
 import assignment.hillfort.models.HillfortModel
+import assignment.hillfort.views.hillfort.base.BaseView
 import kotlinx.android.synthetic.main.activity_hillfort.description
 import kotlinx.android.synthetic.main.activity_hillfort.hillfortTitle
 import java.time.LocalDateTime
 
 
-class HillfortActivity : AppCompatActivity(), AnkoLogger {
+class HillfortView : BaseView(), AnkoLogger {
 
     lateinit var presenter: HillfortPresenter
     var hillfort = HillfortModel()
@@ -29,15 +28,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         toolbarAdd.title = title
         setSupportActionBar(toolbarAdd)
 
-        presenter = HillfortPresenter(this)
-
-        btnAdd.setOnClickListener {
-            if (hillfortTitle.text.toString().isEmpty()) {
-                toast(R.string.enter_hillfort_title)
-            } else {
-                presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(), AdditonalNotes.text.toString())
-            }
-        }
+        presenter = initPresenter (HillfortPresenter(this)) as HillfortPresenter
 
         chooseImage.setOnClickListener { presenter.doSelectImage() }
         chooseImage1.setOnClickListener { presenter.doSelectImage1() }
@@ -48,7 +39,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
     }
 
 
-    fun showHillfort(hillfort: HillfortModel) {
+    override fun showHillfort(hillfort: HillfortModel) {
         hillfortTitle.setText(hillfort.title)
         description.setText(hillfort.description)
         AdditonalNotes.setText(hillfort.notes)
@@ -81,8 +72,6 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         if (hillfort.image3 != null) {
             chooseImage3.setText(R.string.change_hillfort_image)
         }
-
-        btnAdd.setText(R.string.save_hillfort)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -98,6 +87,13 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             }
             R.id.item_cancel -> {
                 presenter.doCancel()
+            }
+            R.id.item_add1 -> {
+                if (hillfortTitle.text.toString().isEmpty()) {
+                    toast(R.string.enter_hillfort_title)
+                } else {
+                    presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(), AdditonalNotes.text.toString())
+                }
             }
         }
         return super.onOptionsItemSelected(item)
