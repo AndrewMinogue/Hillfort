@@ -15,6 +15,8 @@ import assignment.hillfort.models.HillfortModel
 import assignment.hillfort.models.UserModel
 import assignment.hillfort.views.hillfort.base.BaseView
 import assignment.hillfort.views.hillfort.hillfort.HillfortView
+import kotlinx.android.synthetic.main.activity_hillfort_list.toolbar
+import kotlinx.android.synthetic.main.activity_map.*
 import org.jetbrains.anko.startActivity
 
 class HillfortListView: BaseView(), HillfortListener {
@@ -26,8 +28,8 @@ class HillfortListView: BaseView(), HillfortListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hillfort_list)
-        toolbar.title = title
-        setSupportActionBar(toolbar)
+        super.init(toolbar, false)
+        app = application as MainApp
 
         presenter = initPresenter(HillfortListPresenter(this)) as HillfortListPresenter
 

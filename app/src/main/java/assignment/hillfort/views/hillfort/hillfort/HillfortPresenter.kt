@@ -3,12 +3,15 @@ package assignment.hillfort.views.hillfort.hillfort
 import android.annotation.SuppressLint
 import android.content.Intent
 import assignment.hillfort.helpers.checkLocationPermissions
+import assignment.hillfort.helpers.createDefaultLocationRequest
 import assignment.hillfort.helpers.isPermissionGranted
 import assignment.hillfort.helpers.showImagePicker
 import assignment.hillfort.models.HillfortModel
 import assignment.hillfort.models.Location
 import assignment.hillfort.views.hillfort.base.*
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -23,6 +26,7 @@ class HillfortPresenter(view: BaseView): BasePresenter(view) {
     var defaultLocation = Location(52.245696, -7.139102, 15f)
     var edit = false;
     var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)
+    val locationRequest = createDefaultLocationRequest()
 
     init {
         if (view.intent.hasExtra("hillfort_edit")) {
@@ -69,6 +73,21 @@ class HillfortPresenter(view: BaseView): BasePresenter(view) {
         view?.showHillfort(hillfort)
     }
 
+
+    @SuppressLint("MissingPermission")
+    fun doResartLocationUpdates() {
+        var locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult?) {
+                if (locationResult != null && locationResult.locations != null) {
+                    val l = locationResult.locations.last()
+                    locationUpdate(l.latitude, l.longitude)
+                }
+            }
+        }
+        if (!edit) {
+            locationService.requestLocationUpdates(locationRequest, locationCallback, null)
+        }
+    }
 
     fun doAddOrSave(title: String, description: String, additionalnotes : String) {
         hillfort.title = title
