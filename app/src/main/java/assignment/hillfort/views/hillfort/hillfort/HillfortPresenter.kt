@@ -1,34 +1,28 @@
 package assignment.hillfort.views.hillfort.hillfort
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import assignment.hillfort.helpers.checkLocationPermissions
 import assignment.hillfort.helpers.isPermissionGranted
-import assignment.hillfort.views.hillfort.editlocation.EditLocationView
 import assignment.hillfort.helpers.showImagePicker
-import assignment.hillfort.main.MainApp
 import assignment.hillfort.models.HillfortModel
 import assignment.hillfort.models.Location
 import assignment.hillfort.views.hillfort.base.*
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import org.jetbrains.anko.intentFor
-
 
 
 class HillfortPresenter(view: BaseView): BasePresenter(view) {
 
-    val IMAGE_REQUEST = 1
-    val IMAGE_REQUEST1 = 3
-    val IMAGE_REQUEST2 = 4
-    val IMAGE_REQUEST3 = 5
-    val LOCATION_REQUEST = 2
     var map: GoogleMap? = null
-
     var hillfort = HillfortModel()
     var defaultLocation = Location(52.245696, -7.139102, 15f)
     var edit = false;
+    var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)
 
     init {
         if (view.intent.hasExtra("hillfort_edit")) {
@@ -37,14 +31,31 @@ class HillfortPresenter(view: BaseView): BasePresenter(view) {
             view.showHillfort(hillfort)
         } else {
             if (checkLocationPermissions(view)) {
-                // todo get the current location
+                doSetCurrentLocation()
             }
         }
     }
 
 
+    @SuppressLint("MissingPermission")
+    fun doSetCurrentLocation() {
+        locationService.lastLocation.addOnSuccessListener {
+            locationUpdate(it.latitude, it.longitude)
+        }
+    }
 
+    override fun doRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        if (isPermissionGranted(requestCode, grantResults)) {
+            doSetCurrentLocation()
+        } else {
+            locationUpdate(defaultLocation.lat, defaultLocation.lng)
+        }
+    }
 
+    fun doConfigureMap(m: GoogleMap) {
+        map = m
+        locationUpdate(hillfort.lat, hillfort.lng)
+    }
 
     fun locationUpdate(lat: Double, lng: Double) {
         hillfort.lat = lat
@@ -58,27 +69,11 @@ class HillfortPresenter(view: BaseView): BasePresenter(view) {
         view?.showHillfort(hillfort)
     }
 
-    fun doConfigureMap(m: GoogleMap) {
-         map = m
-         locationUpdate(hillfort.lat, hillfort.lng)
-    }
-
-    override fun doRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-       if (isPermissionGranted(requestCode, grantResults)) {
-           // todo get the current location
-       } else {
-           // permissions denied, so use the default location
-           locationUpdate(defaultLocation.lat, defaultLocation.lng)
-       }
-    }
-
-
 
     fun doAddOrSave(title: String, description: String, additionalnotes : String) {
         hillfort.title = title
         hillfort.description = description
         hillfort.notes = additionalnotes
-        //hillfort.visited= checkbox_visited
         if (edit) {
             app.hillforts.update(hillfort)
         } else {
@@ -110,12 +105,7 @@ class HillfortPresenter(view: BaseView): BasePresenter(view) {
     }
 
     fun doSetLocation() {
-        if (edit == false) {
-            view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", defaultLocation)
-        } else {
-            view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", Location(hillfort.lat, hillfort.lng, hillfort.zoom)
-            )
-        }
+        view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", Location(hillfort.lat, hillfort.lng, hillfort.zoom))
     }
 
     override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
