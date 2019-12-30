@@ -12,6 +12,7 @@ import assignment.hillfort.R
 import assignment.hillfort.helpers.readImageFromPath
 import assignment.hillfort.models.HillfortModel
 import assignment.hillfort.views.hillfort.base.BaseView
+import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity_hillfort.description
 import kotlinx.android.synthetic.main.activity_hillfort.hillfortTitle
 import java.time.LocalDateTime
@@ -21,6 +22,7 @@ class HillfortView : BaseView(), AnkoLogger {
 
     lateinit var presenter: HillfortPresenter
     var hillfort = HillfortModel()
+    lateinit var map: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +38,12 @@ class HillfortView : BaseView(), AnkoLogger {
         chooseImage3.setOnClickListener { presenter.doSelectImage3() }
 
         hillfortLocation.setOnClickListener { presenter.doSetLocation() }
+
+        mapView.onCreate(savedInstanceState)
+        mapView.getMapAsync {
+            map = it
+            presenter.doConfigureMap(map)
+        }
     }
 
 
@@ -104,5 +112,30 @@ class HillfortView : BaseView(), AnkoLogger {
         if (data != null) {
             presenter.doActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView.onLowMemory()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView.onResume()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        mapView.onSaveInstanceState(outState)
     }
 }

@@ -1,45 +1,49 @@
 package assignment.hillfort.views.hillfort.map
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import assignment.hillfort.R
 import assignment.hillfort.helpers.readImageFromPath
-import assignment.hillfort.main.MainApp
-import com.google.android.gms.maps.CameraUpdateFactory
+import assignment.hillfort.models.HillfortModel
+import assignment.hillfort.views.hillfort.base.BaseView
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
-
 import kotlinx.android.synthetic.main.activity_hillfort_maps.*
 import kotlinx.android.synthetic.main.content_hillfort_maps.*
 
-class HillfortMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
 
-    lateinit var map: GoogleMap
-    lateinit var app: MainApp
+class HillfortMapView : BaseView(), GoogleMap.OnMarkerClickListener {
+
+    lateinit var presenter: HillfortMapPresenter
+    lateinit var map : GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hillfort_maps)
-        setSupportActionBar(toolbar)
-        app = application as MainApp
+        super.init(toolbar)
+
+        presenter = initPresenter (HillfortMapPresenter(this)) as HillfortMapPresenter
+
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync {
             map = it
-            configureMap()
+            map.setOnMarkerClickListener(this)
+            presenter.loadPlacemarks()
         }
     }
 
-    fun configureMap() {
-        map.uiSettings.setZoomControlsEnabled(true)
-        app.hillforts.findAll().forEach {
-            val loc = LatLng(it.lat, it.lng)
-            val options = MarkerOptions().title(it.title).position(loc)
-            map.addMarker(options).tag = it.id
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
-            map.setOnMarkerClickListener(this)
-        }
+    override fun showHillfort(hillfort: HillfortModel) {
+        currentTitle.text = hillfort.title
+        currentDescription.text = hillfort.description
+        currentImage.setImageBitmap(readImageFromPath(this, hillfort.image))
+    }
+
+    override fun showHillforts(hillforts: List<HillfortModel>) {
+        presenter.doPopulateMap(map, hillforts)
+    }
+
+    override fun onMarkerClick(marker: Marker): Boolean {
+        presenter.doMarkerSelected(marker)
+        return true
     }
 
     override fun onDestroy() {
@@ -65,14 +69,5 @@ class HillfortMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         mapView.onSaveInstanceState(outState)
-    }
-
-    override fun onMarkerClick(marker: Marker): Boolean {
-        val tag = marker.tag as Long
-        val hillfort = app.hillforts.findById(tag)
-        currentTitle.text = hillfort!!.title
-        currentDescription.text = hillfort!!.description
-        currentImage.setImageBitmap(readImageFromPath(this, hillfort.image))
-        return true
     }
 }

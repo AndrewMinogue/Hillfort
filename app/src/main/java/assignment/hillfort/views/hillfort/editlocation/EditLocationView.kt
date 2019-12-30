@@ -13,44 +13,33 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import assignment.hillfort.R
 import assignment.hillfort.models.Location
+import assignment.hillfort.views.hillfort.base.BaseView
 import assignment.hillfort.views.hillfort.editlocation.EditLocationPresenter
 import com.google.android.gms.maps.model.Marker
+import kotlinx.android.synthetic.main.activity_hillfort.*
 import kotlinx.android.synthetic.main.activity_map.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
-class EditLocationView : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener, AnkoLogger {
+class EditLocationView : BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
 
-    private lateinit var Map: GoogleMap
-    var location = Location()
+    lateinit var map: GoogleMap
     lateinit var presenter: EditLocationPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         presenter = EditLocationPresenter(this)
-        location = intent.extras?.getParcelable<Location>("location")!!
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-        toolbarAdds.title = title
-        setSupportActionBar(toolbarAdds)
-        info("Hillfort Activity started..")
+        mapFragment.getMapAsync {
+            map = it
+            map.setOnMarkerDragListener(this)
+            map.setOnMarkerClickListener(this)
+            presenter.doConfigureMap(map)
+            setSupportActionBar(toolbarAdd)
+        }
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        Map = googleMap
-        Map.setOnMarkerDragListener(this)
-        val loc = LatLng(location.lat, location.lng)
-        val options = MarkerOptions()
-            .title("Hillfort")
-            .snippet("GPS : " + loc.toString())
-            .draggable(true)
-            .position(loc)
-        Map.addMarker(options)
-        Map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))
-        Map.setOnMarkerClickListener(this)
-    }
 
     override fun onMarkerClick(marker: Marker): Boolean {
         presenter.doUpdateMarker(marker)
@@ -58,21 +47,21 @@ class EditLocationView : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMa
     }
 
     override fun onMarkerDragStart(marker: Marker) {
-        presenter.doUpdateLocation(marker.position.latitude, marker.position.longitude, Map.cameraPosition.zoom)
+        presenter.doUpdateLocation(marker.position.latitude, marker.position.longitude)
         presenter.doUpdateMarker(marker)
     }
 
     override fun onMarkerDrag(marker: Marker) {
-        presenter.doUpdateLocation(marker.position.latitude, marker.position.longitude, Map.cameraPosition.zoom)
+        presenter.doUpdateLocation(marker.position.latitude, marker.position.longitude)
         presenter.doUpdateMarker(marker)
     }
 
     override fun onMarkerDragEnd(marker: Marker) {
-        presenter.doUpdateLocation(marker.position.latitude, marker.position.longitude, Map.cameraPosition.zoom)
+        presenter.doUpdateLocation(marker.position.latitude, marker.position.longitude)
     }
 
     override fun onBackPressed() {
-        presenter.doOnBackPressed()
+        presenter.doSave()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -83,12 +72,10 @@ class EditLocationView : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMa
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.item_up -> {
-                presenter.doOnBackPressed()
+                presenter.doSave()
             }
         }
         return super.onOptionsItemSelected(item)
     }
-
-
 }
 
