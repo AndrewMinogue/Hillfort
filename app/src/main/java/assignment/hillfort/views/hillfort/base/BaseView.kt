@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import assignment.hillfort.views.hillfort.map.HillfortMapView
 import assignment.hillfort.models.HillfortModel
+import assignment.hillfort.models.Location
 import assignment.hillfort.views.hillfort.editlocation.EditLocationView
 import assignment.hillfort.views.hillfort.hillfort.HillfortView
 import assignment.hillfort.views.hillfort.hillfortlist.HillfortListView
@@ -71,7 +72,7 @@ open abstract class BaseView : AppCompatActivity(), AnkoLogger {
 
     open fun showHillfort(hillfort: HillfortModel) {}
     open fun showHillforts(hillfort: List<HillfortModel>) {}
-    open fun showLocation(latitude : Double, longitude : Double) {}
+    open fun showLocation(location : Location) {}
     open fun showProgress() {}
     open fun hideProgress() {}
 }

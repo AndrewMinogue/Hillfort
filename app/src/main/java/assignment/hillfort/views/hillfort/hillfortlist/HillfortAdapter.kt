@@ -41,10 +41,6 @@ class HillfortAdapter constructor(private var hillforts: List<HillfortModel>, pr
 
         fun bind(hillfort: HillfortModel, listener: HillfortListener) {
 
-            var latDouble = hillfort.lat.toString()
-            var langDouble = hillfort.lng.toString()
-
-
 
             if(hillfort.visited == true){
                 itemView.visited.setChecked(true)
@@ -56,8 +52,6 @@ class HillfortAdapter constructor(private var hillforts: List<HillfortModel>, pr
 
             itemView.hillfortTitle.text = hillfort.title
             itemView.description.text = hillfort.description
-            itemView.lat.text= latDouble
-            itemView.lang.text = langDouble
             itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, hillfort.image))
             itemView.setOnClickListener { listener.onHillfortClick(hillfort) }
         }

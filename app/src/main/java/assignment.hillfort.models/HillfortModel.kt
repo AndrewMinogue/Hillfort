@@ -1,6 +1,7 @@
 package assignment.hillfort.models
 
 import android.os.Parcelable
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
@@ -16,11 +17,10 @@ data class HillfortModel(@PrimaryKey(autoGenerate = true)
                          var title: String = "",
                          var notes: String = "",
                          var description: String = "",
-                         var lat : Double = 0.0,
-                         var lng: Double = 0.0,
+
                          var visited: Boolean = false,
                          var datevisited: String = "",
-                         var zoom: Float = 0f) : Parcelable
+                         @Embedded var location : Location = Location()) : Parcelable
 
 @Parcelize
 data class Location(var lat: Double = 0.0,

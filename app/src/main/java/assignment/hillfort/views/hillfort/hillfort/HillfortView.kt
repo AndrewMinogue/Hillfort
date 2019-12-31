@@ -11,6 +11,7 @@ import org.jetbrains.anko.toast
 import assignment.hillfort.R
 import assignment.hillfort.helpers.readImageFromPath
 import assignment.hillfort.models.HillfortModel
+import assignment.hillfort.models.Location
 import assignment.hillfort.views.hillfort.base.BaseView
 import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity_hillfort.description
@@ -111,8 +112,13 @@ class HillfortView : BaseView(), AnkoLogger {
         if (hillfort.image3 != null) {
             chooseImage3.setText(R.string.change_hillfort_image)
         }
-        lat.setText("%.6f".format(hillfort.lat))
-        lng.setText("%.6f".format(hillfort.lng))
+        this.showLocation(hillfort.location)
+    }
+
+
+    override fun showLocation(location: Location) {
+        lat.setText("%.6f".format(location.lat))
+        lng.setText("%.6f".format(location.lng))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
