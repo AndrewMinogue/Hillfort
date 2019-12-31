@@ -1,5 +1,7 @@
-package assignment.hillfort.models
+package assignment.hillfort.models.mem
 
+import assignment.hillfort.models.HillfortModel
+import assignment.hillfort.models.HillfortStore
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 

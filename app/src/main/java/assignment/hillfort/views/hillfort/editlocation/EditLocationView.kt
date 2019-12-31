@@ -31,6 +31,11 @@ class EditLocationView : BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.O
         }
     }
 
+    override fun showLocation(latitude : Double, longitude : Double) {
+        lat1.setText("%.6f".format(latitude))
+        lng1.setText("%.6f".format(longitude))
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_map, menu)
         return super.onCreateOptionsMenu(menu)

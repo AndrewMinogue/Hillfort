@@ -1,5 +1,8 @@
-package assignment.hillfort.models
+package assignment.hillfort.models.mem
 
+import assignment.hillfort.models.UserModel
+import assignment.hillfort.models.UserStore
+import assignment.hillfort.models.json.generateRandomId
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
