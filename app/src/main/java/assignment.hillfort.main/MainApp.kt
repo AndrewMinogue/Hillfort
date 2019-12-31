@@ -1,10 +1,12 @@
 package assignment.hillfort.main
 
 import android.app.Application
-import assignment.hillfort.models.HillfortJSONStore
+import assignment.hillfort.models.json.HillfortJSONStore
 import assignment.hillfort.models.HillfortStore
-import assignment.hillfort.models.UserJSONStore
+import assignment.hillfort.models.json.UserJSONStore
 import assignment.hillfort.models.UserStore
+import assignment.hillfort.models.firebase.HillfortFireStore
+import assignment.hillfort.models.room.HillfortStoreRoom
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
@@ -15,8 +17,7 @@ class MainApp : Application(), AnkoLogger {
 
     override fun onCreate() {
         super.onCreate()
-        hillforts =  HillfortJSONStore(applicationContext)
-        users =  UserJSONStore(applicationContext)
+        hillforts = HillfortFireStore(applicationContext)
         info("Hillfort started")
     }
 }

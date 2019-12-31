@@ -11,7 +11,10 @@ import org.jetbrains.anko.toast
 import assignment.hillfort.R
 import assignment.hillfort.helpers.readImageFromPath
 import assignment.hillfort.models.HillfortModel
+import assignment.hillfort.models.Location
 import assignment.hillfort.views.hillfort.base.BaseView
+import com.bumptech.glide.Glide
+import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity_hillfort.description
 import kotlinx.android.synthetic.main.activity_hillfort.hillfortTitle
 import java.time.LocalDateTime
@@ -21,12 +24,12 @@ class HillfortView : BaseView(), AnkoLogger {
 
     lateinit var presenter: HillfortPresenter
     var hillfort = HillfortModel()
+    lateinit var map: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hillfort)
-        toolbarAdd.title = title
-        setSupportActionBar(toolbarAdd)
+        super.init(toolbarAdd, true);
 
         presenter = initPresenter (HillfortPresenter(this)) as HillfortPresenter
 
@@ -36,6 +39,44 @@ class HillfortView : BaseView(), AnkoLogger {
         chooseImage3.setOnClickListener { presenter.doSelectImage3() }
 
         hillfortLocation.setOnClickListener { presenter.doSetLocation() }
+
+        mapView.getMapAsync {
+            presenter.doConfigureMap(it)
+            it.setOnMapClickListener { presenter.doSetLocation() }
+        }
+
+        mapView.onCreate(savedInstanceState)
+        mapView.getMapAsync {
+            map = it
+            presenter.doConfigureMap(map)
+        }
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView.onLowMemory()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView.onResume()
+        presenter.doResartLocationUpdates()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        mapView.onSaveInstanceState(outState)
     }
 
 
@@ -56,10 +97,11 @@ class HillfortView : BaseView(), AnkoLogger {
             checkbox_visited.setChecked(false)
         }
 
-        hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
-        hillfortImage1.setImageBitmap(readImageFromPath(this, hillfort.image1))
-        hillfortImage2.setImageBitmap(readImageFromPath(this, hillfort.image2))
-        hillfortImage3.setImageBitmap(readImageFromPath(this, hillfort.image3))
+        Glide.with(this).load(hillfort.image).into(hillfortImage)
+        Glide.with(this).load(hillfort.image1).into(hillfortImage1)
+        Glide.with(this).load(hillfort.image2).into(hillfortImage2)
+        Glide.with(this).load(hillfort.image3).into(hillfortImage3)
+
         if (hillfort.image != null) {
             chooseImage.setText(R.string.change_hillfort_image)
         }
@@ -72,6 +114,13 @@ class HillfortView : BaseView(), AnkoLogger {
         if (hillfort.image3 != null) {
             chooseImage3.setText(R.string.change_hillfort_image)
         }
+        this.showLocation(hillfort.location)
+    }
+
+
+    override fun showLocation(location: Location) {
+        lat.setText("%.6f".format(location.lat))
+        lng.setText("%.6f".format(location.lng))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

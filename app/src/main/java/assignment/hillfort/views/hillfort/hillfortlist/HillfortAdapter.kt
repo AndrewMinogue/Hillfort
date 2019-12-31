@@ -8,6 +8,8 @@ import kotlinx.android.synthetic.main.card_placemark.view.*
 import assignment.hillfort.R
 import assignment.hillfort.helpers.readImageFromPath
 import assignment.hillfort.models.HillfortModel
+import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.activity_hillfort.view.*
 import kotlinx.android.synthetic.main.card_placemark.view.description
 import kotlinx.android.synthetic.main.card_placemark.view.hillfortTitle
 import kotlinx.android.synthetic.main.card_placemark.view.visited
@@ -41,10 +43,6 @@ class HillfortAdapter constructor(private var hillforts: List<HillfortModel>, pr
 
         fun bind(hillfort: HillfortModel, listener: HillfortListener) {
 
-            var latDouble = hillfort.lat.toString()
-            var langDouble = hillfort.lng.toString()
-
-
 
             if(hillfort.visited == true){
                 itemView.visited.setChecked(true)
@@ -54,11 +52,11 @@ class HillfortAdapter constructor(private var hillforts: List<HillfortModel>, pr
                 itemView.visited.setChecked(false)
             }
 
+            itemView.lat1.text = hillfort.location.lat.toString()
+            itemView.lang.text = hillfort.location.lng.toString()
             itemView.hillfortTitle.text = hillfort.title
             itemView.description.text = hillfort.description
-            itemView.lat.text= latDouble
-            itemView.lang.text = langDouble
-            itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, hillfort.image))
+            Glide.with(itemView.context).load(hillfort.image).into(itemView.imageIcon)
             itemView.setOnClickListener { listener.onHillfortClick(hillfort) }
         }
     }

@@ -1,4 +1,4 @@
-package assignment.hillfort.models
+package assignment.hillfort.models.json
 
 import android.content.Context
 import com.google.gson.Gson
@@ -6,7 +6,10 @@ import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import org.jetbrains.anko.AnkoLogger
 import assignment.hillfort.helpers.*
+import assignment.hillfort.models.HillfortModel
+import assignment.hillfort.models.HillfortStore
 import java.util.*
+
 
 val JSON_FILE = "hillforts.json"
 val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
@@ -51,11 +54,13 @@ class HillfortJSONStore : HillfortStore, AnkoLogger {
             foundHillfort.notes = hillfort.notes
             foundHillfort.visited = hillfort.visited
             foundHillfort.datevisited = hillfort.datevisited
-            foundHillfort.lat = hillfort.lat
-            foundHillfort.lng = hillfort.lng
-            foundHillfort.zoom = hillfort.zoom
+            foundHillfort.location = hillfort.location
             serialize()
         }
+    }
+
+    override fun clear() {
+        hillforts.clear()
     }
 
     override fun delete(hillfort: HillfortModel) {
@@ -69,7 +74,9 @@ class HillfortJSONStore : HillfortStore, AnkoLogger {
     }
 
     private fun serialize() {
-        val jsonString = gsonBuilder.toJson(hillforts, listType)
+        val jsonString = gsonBuilder.toJson(hillforts,
+            listType
+        )
         write(context, JSON_FILE, jsonString)
     }
 
@@ -77,4 +84,7 @@ class HillfortJSONStore : HillfortStore, AnkoLogger {
         val jsonString = read(context, JSON_FILE)
         hillforts = Gson().fromJson(jsonString, listType)
     }
+
+
+
 }

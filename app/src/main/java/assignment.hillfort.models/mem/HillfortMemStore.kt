@@ -1,5 +1,7 @@
-package assignment.hillfort.models
+package assignment.hillfort.models.mem
 
+import assignment.hillfort.models.HillfortModel
+import assignment.hillfort.models.HillfortStore
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
@@ -38,12 +40,10 @@ class HillfortMemStore : HillfortStore, AnkoLogger {
             foundHillfort.image1 = hillfort.image1
             foundHillfort.image2 = hillfort.image2
             foundHillfort.image3 = hillfort.image3
-            foundHillfort.lat = hillfort.lat
             foundHillfort.visited = hillfort.visited
             foundHillfort.datevisited = hillfort.datevisited
             foundHillfort.notes = hillfort.notes
-            foundHillfort.lng = hillfort.lng
-            foundHillfort.zoom = hillfort.zoom
+            foundHillfort.location = hillfort.location
             logAll()
         }
     }
@@ -54,5 +54,10 @@ class HillfortMemStore : HillfortStore, AnkoLogger {
 
     fun logAll() {
         hillforts.forEach { info("${it}") }
+    }
+
+
+    override fun clear() {
+        hillforts.clear()
     }
 }

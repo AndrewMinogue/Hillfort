@@ -15,6 +15,8 @@ import assignment.hillfort.models.HillfortModel
 import assignment.hillfort.models.UserModel
 import assignment.hillfort.views.hillfort.base.BaseView
 import assignment.hillfort.views.hillfort.hillfort.HillfortView
+import kotlinx.android.synthetic.main.activity_hillfort_list.toolbar
+import kotlinx.android.synthetic.main.activity_map.*
 import org.jetbrains.anko.startActivity
 
 class HillfortListView: BaseView(), HillfortListener {
@@ -26,8 +28,8 @@ class HillfortListView: BaseView(), HillfortListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hillfort_list)
-        toolbar.title = title
-        setSupportActionBar(toolbar)
+        super.init(toolbar, false)
+        app = application as MainApp
 
         presenter = initPresenter(HillfortListPresenter(this)) as HillfortListPresenter
 
@@ -49,20 +51,21 @@ class HillfortListView: BaseView(), HillfortListener {
         when (item?.itemId) {
             R.id.item_add -> presenter.doAddHillfort()
             R.id.item_map -> presenter.doShowHillfortsMap()
-        }
-        if (item?.itemId == R.id.item_logout) {
-            var allUsers= app.users.findAll()
+            R.id.item_logout ->presenter.doLogout()
 
-            for(x in allUsers)
-                if(x.loggedIn == true) {
-                    user.username = x.username
-                    user.password = x.password
-                    x.loggedIn = false
-                    user.loggedIn = x.loggedIn
-                    app.users.update(user.copy())
-                }
-            startActivityForResult<LoginActivity>(0)
         }
+//        if (item?.itemId == R.id.item_logout) {
+//            var allUsers= app.users.findAll()
+//
+//            for(x in allUsers)
+//                if(x.loggedIn == true) {
+//                    user.username = x.username
+//                    user.password = x.password
+//                    x.loggedIn = false
+//                    user.loggedIn = x.loggedIn
+//                    app.users.update(user.copy())
+//                }
+//            startActivityForResult<LoginActivity>(0)
         when (item?.itemId) {
             R.id.item_settings -> startActivityForResult<SettingsActivity>(0)
         }
