@@ -13,6 +13,7 @@ import assignment.hillfort.helpers.readImageFromPath
 import assignment.hillfort.models.HillfortModel
 import assignment.hillfort.models.Location
 import assignment.hillfort.views.hillfort.base.BaseView
+import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity_hillfort.description
 import kotlinx.android.synthetic.main.activity_hillfort.hillfortTitle
@@ -96,10 +97,11 @@ class HillfortView : BaseView(), AnkoLogger {
             checkbox_visited.setChecked(false)
         }
 
-        hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
-        hillfortImage1.setImageBitmap(readImageFromPath(this, hillfort.image1))
-        hillfortImage2.setImageBitmap(readImageFromPath(this, hillfort.image2))
-        hillfortImage3.setImageBitmap(readImageFromPath(this, hillfort.image3))
+        Glide.with(this).load(hillfort.image).into(hillfortImage)
+        Glide.with(this).load(hillfort.image1).into(hillfortImage1)
+        Glide.with(this).load(hillfort.image2).into(hillfortImage2)
+        Glide.with(this).load(hillfort.image3).into(hillfortImage3)
+
         if (hillfort.image != null) {
             chooseImage.setText(R.string.change_hillfort_image)
         }

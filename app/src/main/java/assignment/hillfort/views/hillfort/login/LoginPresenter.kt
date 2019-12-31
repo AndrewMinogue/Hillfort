@@ -1,6 +1,5 @@
 package assignment.hillfort.views.hillfort.login
 
-import android.content.Context
 import assignment.hillfort.models.firebase.HillfortFireStore
 import assignment.hillfort.views.hillfort.base.BasePresenter
 import assignment.hillfort.views.hillfort.base.BaseView
