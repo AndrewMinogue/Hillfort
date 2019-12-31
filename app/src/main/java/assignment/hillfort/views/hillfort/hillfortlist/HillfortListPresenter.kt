@@ -4,6 +4,7 @@ import assignment.hillfort.models.HillfortModel
 import assignment.hillfort.views.hillfort.base.BasePresenter
 import assignment.hillfort.views.hillfort.base.BaseView
 import assignment.hillfort.views.hillfort.base.VIEW
+import com.google.firebase.auth.FirebaseAuth
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -29,5 +30,10 @@ class HillfortListPresenter(view: BaseView) : BasePresenter(view) {
                 view?.showHillforts(hillforts)
             }
         }
+    }
+    fun doLogout() {
+        FirebaseAuth.getInstance().signOut()
+        app.hillforts.clear()
+        view?.navigateTo(VIEW.LOGIN)
     }
 }

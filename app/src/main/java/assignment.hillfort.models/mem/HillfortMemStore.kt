@@ -55,4 +55,9 @@ class HillfortMemStore : HillfortStore, AnkoLogger {
     fun logAll() {
         hillforts.forEach { info("${it}") }
     }
+
+
+    override fun clear() {
+        hillforts.clear()
+    }
 }

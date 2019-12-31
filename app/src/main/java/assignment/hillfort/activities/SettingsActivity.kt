@@ -4,9 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import assignment.hillfort.R
 import assignment.hillfort.main.MainApp
-import assignment.hillfort.models.HillfortModel
-import assignment.hillfort.models.UserModel
-import kotlinx.android.synthetic.main.activity_hillfort.*
 import kotlinx.android.synthetic.main.activity_hillfort.toolbarAdd
 import kotlinx.android.synthetic.main.settings.*
 import org.jetbrains.anko.AnkoLogger

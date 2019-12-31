@@ -8,6 +8,7 @@ import kotlinx.android.synthetic.main.card_placemark.view.*
 import assignment.hillfort.R
 import assignment.hillfort.helpers.readImageFromPath
 import assignment.hillfort.models.HillfortModel
+import kotlinx.android.synthetic.main.activity_hillfort.view.*
 import kotlinx.android.synthetic.main.card_placemark.view.description
 import kotlinx.android.synthetic.main.card_placemark.view.hillfortTitle
 import kotlinx.android.synthetic.main.card_placemark.view.visited
@@ -50,6 +51,8 @@ class HillfortAdapter constructor(private var hillforts: List<HillfortModel>, pr
                 itemView.visited.setChecked(false)
             }
 
+            itemView.lat1.text = hillfort.location.lat.toString()
+            itemView.lang.text = hillfort.location.lng.toString()
             itemView.hillfortTitle.text = hillfort.title
             itemView.description.text = hillfort.description
             itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, hillfort.image))

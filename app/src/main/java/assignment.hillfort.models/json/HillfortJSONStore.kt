@@ -10,6 +10,7 @@ import assignment.hillfort.models.HillfortModel
 import assignment.hillfort.models.HillfortStore
 import java.util.*
 
+
 val JSON_FILE = "hillforts.json"
 val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
 val listType = object : TypeToken<ArrayList<HillfortModel>>() {}.type
@@ -58,6 +59,10 @@ class HillfortJSONStore : HillfortStore, AnkoLogger {
         }
     }
 
+    override fun clear() {
+        hillforts.clear()
+    }
+
     override fun delete(hillfort: HillfortModel) {
         hillforts.remove(hillfort)
         serialize()
@@ -79,4 +84,7 @@ class HillfortJSONStore : HillfortStore, AnkoLogger {
         val jsonString = read(context, JSON_FILE)
         hillforts = Gson().fromJson(jsonString, listType)
     }
+
+
+
 }

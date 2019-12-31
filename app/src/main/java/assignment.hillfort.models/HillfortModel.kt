@@ -10,6 +10,8 @@ import kotlinx.android.parcel.Parcelize
 @Entity
 data class HillfortModel(@PrimaryKey(autoGenerate = true)
                          var id: Long = 0,
+                         var fbId : String = "",
+
                          var image: String = "",
                          var image1: String = "",
                          var image2: String = "",

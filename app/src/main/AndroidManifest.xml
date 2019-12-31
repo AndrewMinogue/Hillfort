@@ -66,11 +66,7 @@
         </activity>
 
 
-
-        <activity android:name=".activities.RegisterActivity" >
-        </activity>
-
-        <activity android:name=".activities.LoginActivity" >
+        <activity android:name=".views.hillfort.login.LoginView" >
         </activity>
 
         <activity android:name=".activities.SplashActivity">
