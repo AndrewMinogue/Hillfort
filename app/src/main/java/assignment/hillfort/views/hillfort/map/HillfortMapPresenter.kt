@@ -26,7 +26,6 @@ class HillfortMapPresenter(view: BaseView) : BasePresenter(view) {
     }
 
     fun doMarkerSelected(marker: Marker) {
-        val tag = marker.tag as Long
         doAsync {
             val hillfort = marker.tag as HillfortModel
             uiThread {
@@ -35,7 +34,7 @@ class HillfortMapPresenter(view: BaseView) : BasePresenter(view) {
         }
     }
 
-    fun loadPlacemarks() {
+    fun loadHillforts() {
         doAsync {
             val hillforts = app.hillforts.findAll()
             uiThread {

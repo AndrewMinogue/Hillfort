@@ -13,6 +13,8 @@ import assignment.hillfort.helpers.readImageFromPath
 import assignment.hillfort.models.HillfortModel
 import assignment.hillfort.models.Location
 import assignment.hillfort.views.hillfort.base.BaseView
+import assignment.hillfort.views.hillfort.hillfortlist.HillfortListView
+import assignment.hillfort.views.hillfort.login.LoginView
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity_hillfort.description
@@ -127,6 +129,18 @@ class HillfortView : BaseView(), AnkoLogger {
         menuInflater.inflate(R.menu.menu_hillfort, menu)
         if (presenter.edit) menu.getItem(0).setVisible(true)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    fun findChecked(): Boolean{
+        var visited = false
+
+        if(checkbox_visited.isChecked){
+            visited = true
+        }
+        if(checkbox_visited.isChecked == false){
+            visited = false
+        }
+        return visited
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

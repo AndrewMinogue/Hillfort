@@ -19,7 +19,6 @@ data class HillfortModel(@PrimaryKey(autoGenerate = true)
                          var title: String = "",
                          var notes: String = "",
                          var description: String = "",
-
                          var visited: Boolean = false,
                          var datevisited: String = "",
                          @Embedded var location : Location = Location()) : Parcelable
