@@ -19,6 +19,8 @@ class HillfortFireStore(val context: Context) : HillfortStore, AnkoLogger {
     lateinit var userId: String
     lateinit var db: DatabaseReference
     lateinit var st: StorageReference
+    var totalUsers: Long = 0
+    var totalHillforts: Long = 0
 
     override fun findAll(): List<HillfortModel> {
         return hillforts
@@ -75,13 +77,17 @@ class HillfortFireStore(val context: Context) : HillfortStore, AnkoLogger {
         hillforts.clear()
     }
 
-    fun fetchPlacemarks(placemarksReady: () -> Unit) {
+    fun fetchHillforts(hillfortsReady: () -> Unit) {
         val valueEventListener = object : ValueEventListener {
             override fun onCancelled(dataSnapshot: DatabaseError) {
             }
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                dataSnapshot!!.children.mapNotNullTo(hillforts) { it.getValue<HillfortModel>(HillfortModel::class.java) }
-                placemarksReady()
+                dataSnapshot!!.children.mapNotNullTo(hillforts) { it.getValue<HillfortModel>(HillfortModel::class.java)
+                }
+                for(count in dataSnapshot.children) {
+                    totalHillforts += count.child("hillforts").childrenCount
+                }
+                hillfortsReady()
             }
         }
         userId = FirebaseAuth.getInstance().currentUser!!.uid
@@ -115,6 +121,12 @@ class HillfortFireStore(val context: Context) : HillfortStore, AnkoLogger {
             }
         }
     }
+
+    fun totalHillforts():Long {
+        return totalHillforts
+    }
+
+
     fun updateImage1(hillfort: HillfortModel) {
         if (hillfort.image1 != "") {
             val fileName = File(hillfort.image1)
