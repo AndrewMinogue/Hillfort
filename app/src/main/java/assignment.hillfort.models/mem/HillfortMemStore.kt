@@ -19,6 +19,7 @@ class HillfortMemStore : HillfortStore, AnkoLogger {
         return hillforts
     }
 
+
     override fun create(hillfort: HillfortModel) {
         hillfort.id = getId()
         hillforts.add(hillfort)
