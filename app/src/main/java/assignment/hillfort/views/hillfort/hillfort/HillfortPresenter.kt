@@ -2,6 +2,9 @@ package assignment.hillfort.views.hillfort.hillfort
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.Intent.getIntent
+import androidx.core.content.ContextCompat.startActivity
+import assignment.hillfort.R
 import assignment.hillfort.helpers.checkLocationPermissions
 import assignment.hillfort.helpers.createDefaultLocationRequest
 import assignment.hillfort.helpers.isPermissionGranted
@@ -9,6 +12,9 @@ import assignment.hillfort.helpers.showImagePicker
 import assignment.hillfort.models.HillfortModel
 import assignment.hillfort.models.Location
 import assignment.hillfort.views.hillfort.base.*
+import assignment.hillfort.views.hillfort.hillfortlist.HillfortListPresenter
+import assignment.hillfort.views.hillfort.hillfortlist.HillfortListView
+import assignment.hillfort.views.hillfort.login.LoginView
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
@@ -90,10 +96,13 @@ class HillfortPresenter(view: BaseView): BasePresenter(view) {
         }
     }
 
-    fun doAddOrSave(title: String, description: String, additionalnotes : String) {
+    fun doAddOrSave(title: String, description: String, additionalnotes : String,visited: Boolean , favourite: Boolean) {
         hillfort.title = title
         hillfort.description = description
         hillfort.notes = additionalnotes
+        hillfort.visited = visited
+        hillfort.favourite = favourite
+
         doAsync {
             if (edit) {
                 app.hillforts.update(hillfort)
@@ -110,6 +119,8 @@ class HillfortPresenter(view: BaseView): BasePresenter(view) {
         view?.finish()
     }
 
+
+    // For some reason when the visited checkbox is true the app needs me to logout to update the hillforts????
     fun doDelete() {
         doAsync {
             app.hillforts.delete(hillfort)

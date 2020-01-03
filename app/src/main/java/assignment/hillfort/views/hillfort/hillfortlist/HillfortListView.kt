@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import assignment.hillfort.R
@@ -12,16 +11,11 @@ import assignment.hillfort.activities.*
 import assignment.hillfort.main.MainApp
 import org.jetbrains.anko.startActivityForResult
 import assignment.hillfort.models.HillfortModel
-import assignment.hillfort.models.UserModel
 import assignment.hillfort.views.hillfort.base.BaseView
-import assignment.hillfort.views.hillfort.hillfort.HillfortView
 import kotlinx.android.synthetic.main.activity_hillfort_list.toolbar
-import kotlinx.android.synthetic.main.activity_map.*
-import org.jetbrains.anko.startActivity
 
 class HillfortListView: BaseView(), HillfortListener {
 
-    var user = UserModel()
     lateinit var presenter: HillfortListPresenter
     lateinit var app: MainApp
 
@@ -54,18 +48,6 @@ class HillfortListView: BaseView(), HillfortListener {
             R.id.item_logout ->presenter.doLogout()
 
         }
-//        if (item?.itemId == R.id.item_logout) {
-//            var allUsers= app.users.findAll()
-//
-//            for(x in allUsers)
-//                if(x.loggedIn == true) {
-//                    user.username = x.username
-//                    user.password = x.password
-//                    x.loggedIn = false
-//                    user.loggedIn = x.loggedIn
-//                    app.users.update(user.copy())
-//                }
-//            startActivityForResult<LoginActivity>(0)
         when (item?.itemId) {
             R.id.item_settings -> startActivityForResult<SettingsActivity>(0)
         }
@@ -78,6 +60,7 @@ class HillfortListView: BaseView(), HillfortListener {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        presenter.loadHillforts()
         presenter.loadHillforts()
         recyclerView.adapter?.notifyDataSetChanged()
         super.onActivityResult(requestCode, resultCode, data)

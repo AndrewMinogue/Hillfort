@@ -26,4 +26,9 @@
         android:title="@string/menu_showMap"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/item_favourites"
+        android:title="@string/hillfort_favourites"
+        app:showAsAction="never"/>
+
 </menu>

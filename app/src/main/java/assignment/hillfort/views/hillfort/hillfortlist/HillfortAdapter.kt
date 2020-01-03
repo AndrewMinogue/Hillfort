@@ -52,6 +52,14 @@ class HillfortAdapter constructor(private var hillforts: List<HillfortModel>, pr
                 itemView.visited.setChecked(false)
             }
 
+            if(hillfort.favourite == true){
+                itemView.favourited.setChecked(true)
+                hillfort.favourite = true
+            }else if(hillfort.favourite == false){
+                hillfort.favourite = false
+                itemView.favourited.setChecked(false)
+            }
+
             itemView.lat1.text = hillfort.location.lat.toString()
             itemView.lang.text = hillfort.location.lng.toString()
             itemView.hillfortTitle.text = hillfort.title
