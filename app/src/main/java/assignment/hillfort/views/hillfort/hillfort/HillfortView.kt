@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.SeekBar
 import kotlinx.android.synthetic.main.activity_hillfort.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
@@ -52,6 +53,7 @@ class HillfortView : BaseView(), AnkoLogger {
             map = it
             presenter.doConfigureMap(map)
         }
+
     }
 
 
@@ -99,6 +101,14 @@ class HillfortView : BaseView(), AnkoLogger {
             checkbox_visited.setChecked(false)
         }
 
+        if(hillfort.favourite == true){
+            favourite.setChecked(true)
+            hillfort.favourite = true
+        }else if(hillfort.favourite == false){
+            hillfort.favourite = false
+            favourite.setChecked(false)
+        }
+
         Glide.with(this).load(hillfort.image).into(hillfortImage)
         Glide.with(this).load(hillfort.image1).into(hillfortImage1)
         Glide.with(this).load(hillfort.image2).into(hillfortImage2)
@@ -131,7 +141,7 @@ class HillfortView : BaseView(), AnkoLogger {
         return super.onCreateOptionsMenu(menu)
     }
 
-    fun findChecked(): Boolean{
+    fun findVisitedChecked(): Boolean{
         var visited = false
 
         if(checkbox_visited.isChecked){
@@ -142,6 +152,20 @@ class HillfortView : BaseView(), AnkoLogger {
         }
         return visited
     }
+
+    fun findFavouriteChecked(): Boolean{
+        var favourite1 = false
+
+        if(favourite.isChecked){
+            favourite1 = true
+        }
+        if(favourite.isChecked == false){
+            favourite1 = false
+        }
+        return favourite1
+    }
+
+
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
@@ -155,7 +179,7 @@ class HillfortView : BaseView(), AnkoLogger {
                 if (hillfortTitle.text.toString().isEmpty()) {
                     toast(R.string.enter_hillfort_title)
                 } else {
-                    presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(), AdditonalNotes.text.toString())
+                    presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(), AdditonalNotes.text.toString(), findVisitedChecked(),findFavouriteChecked())
                 }
             }
         }
