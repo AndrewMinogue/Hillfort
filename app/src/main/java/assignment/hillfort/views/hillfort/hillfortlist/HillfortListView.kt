@@ -12,6 +12,7 @@ import assignment.hillfort.main.MainApp
 import org.jetbrains.anko.startActivityForResult
 import assignment.hillfort.models.HillfortModel
 import assignment.hillfort.views.hillfort.base.BaseView
+import assignment.hillfort.views.hillfort.favourite.FavouriteView
 import kotlinx.android.synthetic.main.activity_hillfort_list.toolbar
 
 class HillfortListView: BaseView(), HillfortListener {
@@ -46,9 +47,7 @@ class HillfortListView: BaseView(), HillfortListener {
             R.id.item_add -> presenter.doAddHillfort()
             R.id.item_map -> presenter.doShowHillfortsMap()
             R.id.item_logout ->presenter.doLogout()
-
-        }
-        when (item?.itemId) {
+            R.id.item_favourites -> startActivityForResult<FavouriteView>(0)
             R.id.item_settings -> startActivityForResult<SettingsActivity>(0)
         }
         return super.onOptionsItemSelected(item)

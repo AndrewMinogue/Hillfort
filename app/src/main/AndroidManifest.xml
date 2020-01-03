@@ -13,62 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/hillfortKey" />
-
-        <activity
-            android:name=".views.hillfort.map.HillfortMapView"
-            android:label="@string/title_activity_hillfort_maps"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.hillfort.map.HillfortMapView" />
-        </activity>
-
-
-        <activity
-            android:name=".views.hillfort.editlocation.EditLocationView"
-            android:label="@string/title_activity_map" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.hillfort.hillfort.HillfortView" />
-        </activity>
-
-
-        <activity
-            android:name=".views.hillfort.hillfort.HillfortView"
-            android:label="@string/title_activity_hillfort">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.hillfort.hillfortlist.HillfortListView" />
-        </activity>
-
-
-
-        <activity android:name=".activities.SettingsActivity" >
-
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.hillfort.hillfortlist.HillfortListView" />
-        </activity>
-
-
-
-        <activity android:name=".views.hillfort.hillfortlist.HillfortListView"
-                  android:label="@string/title_activity_hillfort_list"
-                  android:launchMode="singleTop">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-
-
-        <activity android:name=".views.hillfort.login.LoginView" >
-        </activity>
-
         <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -76,6 +20,81 @@
             </intent-filter>
         </activity>
 
+
+
+        <activity android:name=".views.hillfort.login.LoginView" >
+        </activity>
+
+
+
+        <activity android:name=".views.hillfort.hillfortlist.HillfortListView"
+            android:label="@string/title_activity_hillfort_list"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+
+        <activity
+            android:name=".views.hillfort.hillfort.HillfortView"
+            android:label="@string/title_activity_hillfort"
+            android:parentActivityName=".views.hillfort.hillfortlist.HillfortListView">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.hillfort.hillfortlist.HillfortListView" />
+        </activity>
+
+
+
+        <activity android:name=".activities.SettingsActivity"
+            android:parentActivityName=".views.hillfort.hillfortlist.HillfortListView">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.hillfort.hillfortlist.HillfortListView" />
+        </activity>
+
+
+        <activity
+            android:name=".views.hillfort.favourite.FavouriteView"
+            android:label="@string/title_activity_hillfort_favourites"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".views.hillfort.hillfortlist.HillfortListView">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.hillfort.hillfortlist.HillfortListView" />
+        </activity>
+
+
+        <activity
+            android:name=".views.hillfort.map.HillfortMapView"
+            android:label="@string/title_activity_hillfort_maps"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".views.hillfort.hillfortlist.HillfortListView">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.hillfort.hillfortlist.HillfortListView" />
+        </activity>
+
+
+
+        <activity
+            android:name=".views.hillfort.editlocation.EditLocationView"
+            android:label="@string/title_activity_map"
+            android:parentActivityName=".views.hillfort.hillfort.HillfortView">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.hillfort.hillfort.HillfortView" />
+        </activity>
+
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/hillfortKey" />
     </application>
 
 </manifest>
