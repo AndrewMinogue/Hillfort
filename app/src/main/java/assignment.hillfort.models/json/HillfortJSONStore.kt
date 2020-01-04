@@ -31,6 +31,10 @@ class HillfortJSONStore : HillfortStore, AnkoLogger {
         }
     }
 
+    override fun sortedByFavourite(): List<HillfortModel>? {
+        return hillforts.sortedWith(compareBy { it.favourite }).asReversed()
+    }
+
     override fun findAll(): MutableList<HillfortModel> {
         return hillforts
     }

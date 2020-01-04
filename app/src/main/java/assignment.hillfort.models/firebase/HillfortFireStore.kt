@@ -40,6 +40,11 @@ class HillfortFireStore(val context: Context) : HillfortStore, AnkoLogger {
         }
     }
 
+    override fun sortedByFavourite(): List<HillfortModel>? {
+        return hillforts.filter { it.favourite }
+//        return hillforts.sortedWith(compareBy { it.favourite }).asReversed()
+    }
+
     override fun update(hillfort: HillfortModel) {
         var foundHillfort: HillfortModel? = hillforts.find { p -> p.fbId == hillfort.fbId }
         if (foundHillfort != null) {

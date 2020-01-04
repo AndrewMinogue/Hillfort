@@ -31,6 +31,9 @@ class HillfortMemStore : HillfortStore, AnkoLogger {
         return foundHillfort
     }
 
+    override fun sortedByFavourite(): List<HillfortModel>? {
+        return hillforts.sortedWith(compareBy { it.favourite }).asReversed()
+    }
 
     override fun update(hillfort: HillfortModel) {
         var foundHillfort: HillfortModel? = hillforts.find { p -> p.id == hillfort.id }

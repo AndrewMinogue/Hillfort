@@ -11,6 +11,10 @@ import org.jetbrains.anko.uiThread
 
 class HillfortListPresenter(view: BaseView) : BasePresenter(view) {
 
+
+    private var currentHillforts: List<HillfortModel> = arrayListOf()
+
+
     fun doAddHillfort() {
         view?.navigateTo(VIEW.HILLFORT)
     }
@@ -27,10 +31,21 @@ class HillfortListPresenter(view: BaseView) : BasePresenter(view) {
         doAsync {
             val hillforts = app.hillforts.findAll()
             uiThread {
+                currentHillforts = hillforts
                 view?.showHillforts(hillforts)
             }
         }
     }
+
+    fun doSortFavourite() {
+        val favourites = app.hillforts.sortedByFavourite()
+        if (favourites != null) {
+            currentHillforts = favourites
+            view?.showHillforts(favourites)
+        }
+    }
+
+
     fun doLogout() {
         FirebaseAuth.getInstance().signOut()
         app.hillforts.clear()

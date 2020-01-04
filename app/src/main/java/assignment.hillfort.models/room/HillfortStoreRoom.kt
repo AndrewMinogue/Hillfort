@@ -38,4 +38,8 @@ class HillfortStoreRoom(val context: Context) : HillfortStore {
 
     override fun clear() {
     }
+
+    override fun sortedByFavourite(): List<HillfortModel>? {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

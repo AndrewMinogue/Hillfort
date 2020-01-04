@@ -24,10 +24,10 @@ class EditLocationView : BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.O
         presenter = initPresenter(EditLocationPresenter(this)) as EditLocationPresenter
 
         mapView1.onCreate(savedInstanceState)
-        mapView1.getMapAsync {
-            it.setOnMarkerDragListener(this)
-            it.setOnMarkerClickListener(this)
-            presenter.doConfigureMap(it)
+            mapView1.getMapAsync {
+                it.setOnMarkerDragListener(this)
+                it.setOnMarkerClickListener(this)
+                presenter.doConfigureMap(it)
         }
     }
 
