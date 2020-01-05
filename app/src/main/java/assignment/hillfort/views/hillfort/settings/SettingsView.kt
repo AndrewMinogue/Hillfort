@@ -26,6 +26,7 @@ class SettingsView : BaseView(), AnkoLogger {
         setContentView(R.layout.settings)
         app = application as MainApp
         toolbarAdd.title = title
+        super.init(toolbarAdd, true)
         setSupportActionBar(toolbarAdd)
         info("Hillfort Activity started..")
 
