@@ -28,13 +28,34 @@ class HillfortListView: BaseView(), HillfortListener {
         super.init(toolbar, false)
         app = application as MainApp
 
-
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
         presenter = initPresenter(HillfortListPresenter(this)) as HillfortListPresenter
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         presenter.loadHillforts()
 
+
+
+        val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.item_favourites1 -> {
+                    presenter.doSortFavourite()
+                }
+                R.id.item_home1 -> {
+                    startActivityForResult<HillfortListView>(0)
+                }
+                R.id.item_settings1 -> {
+
+                    startActivityForResult<SettingsView>(0)
+                }
+            }
+            false
+        }
+
+
+
+        bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         searchBtn.setOnClickListener{ presenter.doSearchHillforts()}
 
     }
@@ -66,6 +87,9 @@ class HillfortListView: BaseView(), HillfortListener {
                 }
             }
             R.id.item_settings -> startActivityForResult<SettingsView>(0)
+            R.id.item_favourites1 -> presenter.doSortFavourite()
+            R.id.item_settings1 -> startActivityForResult<SettingsView>(0)
+            R.id.item_home1 -> startActivityForResult<HillfortListView>(0)
         }
         return super.onOptionsItemSelected(item)
     }

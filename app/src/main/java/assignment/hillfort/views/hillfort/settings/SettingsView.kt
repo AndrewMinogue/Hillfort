@@ -1,17 +1,23 @@
 package assignment.hillfort.views.hillfort.settings
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import assignment.hillfort.R
 import assignment.hillfort.main.MainApp
+import assignment.hillfort.views.hillfort.base.BaseView
+import assignment.hillfort.views.hillfort.hillfortlist.HillfortListPresenter
+import assignment.hillfort.views.hillfort.hillfortlist.HillfortListView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_hillfort.toolbarAdd
 import kotlinx.android.synthetic.main.settings.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import org.jetbrains.anko.startActivityForResult
 
 
-class SettingsView : AppCompatActivity(), AnkoLogger {
+class SettingsView : BaseView(), AnkoLogger {
 
     lateinit var app: MainApp
 
