@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="assignment.hillfort.activities.RegisterActivity">
+    tools:context="assignment.hillfort.views.hillfort.settings.SettingsView">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -40,8 +40,29 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/etRegister_username"
+                <TextView
+                    android:id="@+id/Settings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="settings"
+                    android:padding="8dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_username"
+                    android:textColor="@color/black"
+                    android:padding="8dp"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/etLogin_username1"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_margin="8dp"
@@ -49,41 +70,53 @@
                     android:inputType="text"
                     android:maxLength="25"
                     android:maxLines="1"
-                    android:drawableLeft="@drawable/user"
-                    android:padding="8dp"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:id="@+id/etRegister_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:hint="@string/login_password"
-                    android:inputType="textPassword"
-                    android:maxLength="25"
-                    android:maxLines="1"
-                    android:drawableLeft="@drawable/lock"
                     android:padding="8dp"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
 
-                <Button
-                    android:id="@+id/Register"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/TVhillfortCount"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="@color/colorAccent"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="8dp"
-                    android:text="@string/button_register"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"/>
+                    android:padding="8dp"
+                    android:text="@string/hillfortNumber"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/hillfortCount1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+
+
+                <TextView
+                    android:id="@+id/TVvisitedCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/hillfortNumberVisited"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/visitedCount1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
 
             </LinearLayout>
         </ScrollView>
-
     </RelativeLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

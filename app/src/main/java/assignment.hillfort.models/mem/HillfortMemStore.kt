@@ -14,6 +14,7 @@ internal fun getId(): Long {
 class HillfortMemStore : HillfortStore, AnkoLogger {
 
     val hillforts = ArrayList<HillfortModel>()
+    val hillfort = HillfortModel()
 
     override fun findAll(): List<HillfortModel> {
         return hillforts
@@ -31,6 +32,16 @@ class HillfortMemStore : HillfortStore, AnkoLogger {
         return foundHillfort
     }
 
+    override fun hillfortSearch(title: String): HillfortModel {
+        if(title == hillfort.title) {
+            return hillfort
+        }
+        return hillfort
+    }
+
+    override fun sortedByFavourite(): List<HillfortModel>? {
+        return hillforts.sortedWith(compareBy { it.favourite }).asReversed()
+    }
 
     override fun update(hillfort: HillfortModel) {
         var foundHillfort: HillfortModel? = hillforts.find { p -> p.id == hillfort.id }
@@ -47,6 +58,7 @@ class HillfortMemStore : HillfortStore, AnkoLogger {
             foundHillfort.location = hillfort.location
             foundHillfort.visited = hillfort.visited
             foundHillfort.favourite = hillfort.favourite
+            foundHillfort.rating = hillfort.rating
             logAll()
         }
     }
@@ -58,7 +70,6 @@ class HillfortMemStore : HillfortStore, AnkoLogger {
     fun logAll() {
         hillforts.forEach { info("${it}") }
     }
-
 
     override fun clear() {
         hillforts.clear()

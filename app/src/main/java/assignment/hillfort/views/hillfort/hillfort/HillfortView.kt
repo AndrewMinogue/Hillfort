@@ -88,6 +88,7 @@ class HillfortView : BaseView(), AnkoLogger {
         hillfortTitle.setText(hillfort.title)
         description.setText(hillfort.description)
         AdditonalNotes.setText(hillfort.notes)
+        ratingNumber.rating = hillfort.rating
 
         if(hillfort.visited == true){
             checkbox_visited.setChecked(true)
@@ -179,7 +180,7 @@ class HillfortView : BaseView(), AnkoLogger {
                 if (hillfortTitle.text.toString().isEmpty()) {
                     toast(R.string.enter_hillfort_title)
                 } else {
-                    presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(), AdditonalNotes.text.toString(), findVisitedChecked(),findFavouriteChecked())
+                    presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(), AdditonalNotes.text.toString(), findVisitedChecked(),findFavouriteChecked(),ratingNumber.rating)
                 }
             }
         }

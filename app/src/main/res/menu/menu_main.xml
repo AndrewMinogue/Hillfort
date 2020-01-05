@@ -31,4 +31,10 @@
         android:title="@string/hillfort_favourites"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/item_search"
+        android:title="@string/hillfort_search"
+        app:showAsAction="never"/>
+
+
 </menu>

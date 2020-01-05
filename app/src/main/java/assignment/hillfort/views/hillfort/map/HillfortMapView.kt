@@ -24,7 +24,7 @@ class HillfortMapView : BaseView(), GoogleMap.OnMarkerClickListener {
 
         presenter = initPresenter (HillfortMapPresenter(this)) as HillfortMapPresenter
 
-        mapView.onCreate(savedInstanceState);
+        mapView.onCreate(savedInstanceState)
         mapView.getMapAsync {
             map = it
             map.setOnMarkerClickListener(this)

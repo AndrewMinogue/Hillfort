@@ -7,18 +7,20 @@ import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import assignment.hillfort.R
-import assignment.hillfort.activities.*
 import assignment.hillfort.main.MainApp
 import org.jetbrains.anko.startActivityForResult
 import assignment.hillfort.models.HillfortModel
 import assignment.hillfort.views.hillfort.base.BaseView
-import assignment.hillfort.views.hillfort.favourite.FavouriteView
+import assignment.hillfort.views.hillfort.settings.SettingsView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_hillfort_list.toolbar
 
 class HillfortListView: BaseView(), HillfortListener {
 
     lateinit var presenter: HillfortListPresenter
     lateinit var app: MainApp
+    var favouriteT = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,12 +28,17 @@ class HillfortListView: BaseView(), HillfortListener {
         super.init(toolbar, false)
         app = application as MainApp
 
+
         presenter = initPresenter(HillfortListPresenter(this)) as HillfortListPresenter
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         presenter.loadHillforts()
+
+        searchBtn.setOnClickListener{ presenter.doSearchHillforts()}
+
     }
+
 
     override fun showHillforts(hillforts: List<HillfortModel>) {
         recyclerView.adapter = HillfortAdapter(hillforts, this)
@@ -47,8 +54,18 @@ class HillfortListView: BaseView(), HillfortListener {
             R.id.item_add -> presenter.doAddHillfort()
             R.id.item_map -> presenter.doShowHillfortsMap()
             R.id.item_logout ->presenter.doLogout()
-            R.id.item_favourites -> startActivityForResult<FavouriteView>(0)
-            R.id.item_settings -> startActivityForResult<SettingsActivity>(0)
+            R.id.item_favourites -> {
+                if(favouriteT) {
+                    presenter.loadHillforts()
+                    favouriteT = !favouriteT
+                    item.setTitle(R.string.hillfort_favourites)
+                } else {
+                    presenter.doSortFavourite()
+                    favouriteT = !favouriteT
+                    item.setTitle(R.string.hillfort_showall)
+                }
+            }
+            R.id.item_settings -> startActivityForResult<SettingsView>(0)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -64,6 +81,8 @@ class HillfortListView: BaseView(), HillfortListener {
         recyclerView.adapter?.notifyDataSetChanged()
         super.onActivityResult(requestCode, resultCode, data)
     }
+
+
 }
 
 

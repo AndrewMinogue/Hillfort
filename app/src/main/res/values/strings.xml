@@ -40,8 +40,10 @@
     <string name="date"> Date Visited:</string>
     <string name="title_activity_hillfort_maps">Map of all Hillforts</string>
     <string name="hillfort_favourite">Favourite</string>
-    <string name="hillfort_favourites">Favourites</string>
+    <string name="hillfort_favourites">Show Favourites</string>
     <string name="hillfort_rating">Rating</string>
+    <string name="hillfort_search">Search</string>
+    <string name="hillfort_showall">Show All</string>
 
     <string name="hillfort_image_placeholder">Hillfort Image</string>
     <string name="hillfort_title_placeholder">Hillfort Title</string>
@@ -54,9 +56,10 @@
     <string name="title_activity_edit_location">Hillfort</string>
 
     <string name="title_activity_login"> Signup/Login to Hillfort</string>
-
     <string name="menu_showMap">Show Map</string>
     <string name="menu_logout">Logout</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_add">Add</string>
+    <string name="menu_home">Home</string>
+    <string name="buttonSearch">Search</string>
 </resources>

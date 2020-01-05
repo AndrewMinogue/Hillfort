@@ -10,16 +10,17 @@ import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import java.io.ByteArrayOutputStream
 import java.io.File
 
 class HillfortFireStore(val context: Context) : HillfortStore, AnkoLogger {
 
     val hillforts = ArrayList<HillfortModel>()
+    val hillfort = HillfortModel()
     lateinit var userId: String
     lateinit var db: DatabaseReference
     lateinit var st: StorageReference
-    var totalUsers: Long = 0
     var totalHillforts: Long = 0
 
     override fun findAll(): List<HillfortModel> {
@@ -40,6 +41,22 @@ class HillfortFireStore(val context: Context) : HillfortStore, AnkoLogger {
         }
     }
 
+    override fun sortedByFavourite(): List<HillfortModel>? {
+        return hillforts.filter { it.favourite }
+    }
+
+    override fun hillfortSearch(title: String):HillfortModel {
+        val hillforts1 = findAll()
+        var hill1 = HillfortModel()
+        for(hill in hillforts1) {
+                if (title.toLowerCase().contentEquals(hill.title.toLowerCase())) {
+                    hill1 = hill
+            }
+        }
+        return hill1
+
+    }
+
     override fun update(hillfort: HillfortModel) {
         var foundHillfort: HillfortModel? = hillforts.find { p -> p.fbId == hillfort.fbId }
         if (foundHillfort != null) {
@@ -52,6 +69,7 @@ class HillfortFireStore(val context: Context) : HillfortStore, AnkoLogger {
             foundHillfort.location = hillfort.location
             foundHillfort.visited = hillfort.visited
             foundHillfort.favourite = hillfort.favourite
+            foundHillfort.rating = hillfort.rating
         }
 
         db.child("users").child(userId).child("hillforts").child(hillfort.fbId).setValue(hillfort)
