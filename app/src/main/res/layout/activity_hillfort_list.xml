@@ -7,6 +7,7 @@
     tools:context=".views.hillfort.hillfortlist.HillfortListView">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
@@ -14,12 +15,27 @@
         app:elevation="0dip"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:titleTextColor="@color/colorPrimary" />
 
+
+        <EditText
+            android:id="@+id/searchET"
+            android:layout_width="127dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/searchText"
+            android:background="@color/colorPrimary"
+            android:hint="@string/hillfort_search"
+            android:inputType="text"
+            android:maxLength="25"
+            android:layout_marginBottom="5dp"
+            android:maxLines="1"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -30,8 +46,23 @@
         android:layout_width="match_parent"
         android:layout_height="677dp"
         android:scrollbars="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/searchBtn"
+        android:layout_width="130dp"
+        android:layout_height="26dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_toEndOf="@+id/searchET"
+        android:background="@color/colorPrimary"
+        android:text="@string/buttonSearch"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_anchor="@+id/appBarLayout3"
+        app:layout_anchorGravity="end|bottom" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

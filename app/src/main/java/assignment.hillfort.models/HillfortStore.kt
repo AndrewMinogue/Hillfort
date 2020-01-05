@@ -8,4 +8,5 @@ interface HillfortStore {
     fun findById(id:Long) : HillfortModel?
     fun clear()
     fun sortedByFavourite(): List<HillfortModel>?
+    fun hillfortSearch(title: String):HillfortModel
 }

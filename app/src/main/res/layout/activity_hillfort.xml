@@ -208,19 +208,16 @@ tools:context="assignment.hillfort.main.MainApp">
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Date" />
 
-            <EditText
+            <RatingBar
                 android:id="@+id/ratingNumber"
                 android:layout_width="260dp"
                 android:layout_height="62dp"
                 android:layout_marginStart="88dp"
                 android:layout_marginTop="12dp"
-                android:hint="@string/hillfort_rating"
-                android:inputType="text"
-                android:maxLength="25"
-                android:maxLines="1"
+                android:stepSize="0.25"
+                android:numStars="5"
+                android:rating="4.5"
                 android:padding="8dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Date" />
 

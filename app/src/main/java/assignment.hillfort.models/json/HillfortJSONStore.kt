@@ -23,6 +23,7 @@ class HillfortJSONStore : HillfortStore, AnkoLogger {
 
     val context: Context
     var hillforts = mutableListOf<HillfortModel>()
+    val hillfort = HillfortModel()
 
     constructor (context: Context) {
         this.context = context
@@ -33,6 +34,13 @@ class HillfortJSONStore : HillfortStore, AnkoLogger {
 
     override fun sortedByFavourite(): List<HillfortModel>? {
         return hillforts.sortedWith(compareBy { it.favourite }).asReversed()
+    }
+
+    override fun hillfortSearch(title: String): HillfortModel {
+        if(title == hillfort.title) {
+            return hillfort
+        }
+        return hillfort
     }
 
     override fun findAll(): MutableList<HillfortModel> {
@@ -60,6 +68,7 @@ class HillfortJSONStore : HillfortStore, AnkoLogger {
             foundHillfort.datevisited = hillfort.datevisited
             foundHillfort.location = hillfort.location
             foundHillfort.favourite = hillfort.favourite
+            foundHillfort.rating = hillfort.rating
 
             serialize()
         }

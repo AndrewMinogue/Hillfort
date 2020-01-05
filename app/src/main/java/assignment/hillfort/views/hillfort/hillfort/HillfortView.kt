@@ -28,7 +28,6 @@ class HillfortView : BaseView(), AnkoLogger {
     lateinit var presenter: HillfortPresenter
     var hillfort = HillfortModel()
     lateinit var map: GoogleMap
-    var  hillfortTitleStr: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,13 +69,11 @@ class HillfortView : BaseView(), AnkoLogger {
 
     override fun onPause() {
         super.onPause()
-        hillfortTitleStr = hillfortTitle.text.toString()
         mapView.onPause()
     }
 
     override fun onResume() {
         super.onResume()
-        hillfortTitle.setText(hillfortTitleStr)
         mapView.onResume()
         presenter.doResartLocationUpdates()
     }
@@ -91,6 +88,7 @@ class HillfortView : BaseView(), AnkoLogger {
         hillfortTitle.setText(hillfort.title)
         description.setText(hillfort.description)
         AdditonalNotes.setText(hillfort.notes)
+        ratingNumber.rating = hillfort.rating
 
         if(hillfort.visited == true){
             checkbox_visited.setChecked(true)
@@ -182,7 +180,7 @@ class HillfortView : BaseView(), AnkoLogger {
                 if (hillfortTitle.text.toString().isEmpty()) {
                     toast(R.string.enter_hillfort_title)
                 } else {
-                    presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(), AdditonalNotes.text.toString(), findVisitedChecked(),findFavouriteChecked())
+                    presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(), AdditonalNotes.text.toString(), findVisitedChecked(),findFavouriteChecked(),ratingNumber.rating)
                 }
             }
         }

@@ -1,10 +1,12 @@
 package assignment.hillfort.views.hillfort.hillfortlist
 
+import assignment.hillfort.R
 import assignment.hillfort.models.HillfortModel
 import assignment.hillfort.views.hillfort.base.BasePresenter
 import assignment.hillfort.views.hillfort.base.BaseView
 import assignment.hillfort.views.hillfort.base.VIEW
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_hillfort_list.view.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -13,6 +15,7 @@ class HillfortListPresenter(view: BaseView) : BasePresenter(view) {
 
 
     private var currentHillforts: List<HillfortModel> = arrayListOf()
+    private var currentHillforts1: MutableList<HillfortModel> = arrayListOf()
 
 
     fun doAddHillfort() {
@@ -45,6 +48,14 @@ class HillfortListPresenter(view: BaseView) : BasePresenter(view) {
         }
     }
 
+    fun doSearchHillforts() {
+        currentHillforts1.clear()
+        var hillfort = app.hillforts.hillfortSearch(R.id.searchET.toString())
+        if (hillfort != null) {
+            currentHillforts1.add(hillfort)
+            view?.showHillforts(currentHillforts1)
+        }
+    }
 
     fun doLogout() {
         FirebaseAuth.getInstance().signOut()

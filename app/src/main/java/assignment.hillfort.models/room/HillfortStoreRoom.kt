@@ -6,6 +6,10 @@ import assignment.hillfort.models.HillfortModel
 import assignment.hillfort.models.HillfortStore
 
 class HillfortStoreRoom(val context: Context) : HillfortStore {
+    override fun hillfortSearch(title: String): HillfortModel {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 
     var dao: HillfortDao
 

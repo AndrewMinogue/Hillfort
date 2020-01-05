@@ -32,6 +32,8 @@ class HillfortListView: BaseView(), HillfortListener {
         recyclerView.layoutManager = layoutManager
         presenter.loadHillforts()
 
+        searchBtn.setOnClickListener{ presenter.doSearchHillforts()}
+
     }
 
 
