@@ -1,4 +1,4 @@
-package assignment.hillfort.activities
+package assignment.hillfort.views.hillfort.settings
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +11,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
 
-class SettingsActivity : AppCompatActivity(), AnkoLogger {
+class SettingsView : AppCompatActivity(), AnkoLogger {
 
     lateinit var app: MainApp
 

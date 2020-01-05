@@ -50,7 +50,7 @@
 
 
 
-        <activity android:name=".activities.SettingsActivity"
+        <activity android:name=".views.hillfort.settings.SettingsView"
             android:parentActivityName=".views.hillfort.hillfortlist.HillfortListView">
 
             <meta-data

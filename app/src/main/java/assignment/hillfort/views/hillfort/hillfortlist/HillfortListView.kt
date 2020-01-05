@@ -7,11 +7,12 @@ import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import assignment.hillfort.R
-import assignment.hillfort.activities.*
 import assignment.hillfort.main.MainApp
 import org.jetbrains.anko.startActivityForResult
 import assignment.hillfort.models.HillfortModel
 import assignment.hillfort.views.hillfort.base.BaseView
+import assignment.hillfort.views.hillfort.settings.SettingsView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_hillfort_list.toolbar
 
 class HillfortListView: BaseView(), HillfortListener {
@@ -20,11 +21,13 @@ class HillfortListView: BaseView(), HillfortListener {
     lateinit var app: MainApp
     var favouriteT = false
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hillfort_list)
         super.init(toolbar, false)
         app = application as MainApp
+
 
         presenter = initPresenter(HillfortListPresenter(this)) as HillfortListPresenter
 
@@ -62,7 +65,7 @@ class HillfortListView: BaseView(), HillfortListener {
                     item.setTitle(R.string.hillfort_showall)
                 }
             }
-            R.id.item_settings -> startActivityForResult<SettingsActivity>(0)
+            R.id.item_settings -> startActivityForResult<SettingsView>(0)
         }
         return super.onOptionsItemSelected(item)
     }

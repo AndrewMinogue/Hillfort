@@ -40,12 +40,13 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="677dp"
         android:scrollbars="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -64,21 +65,4 @@
         app:layout_anchorGravity="end|bottom" />
 
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/container">
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_gravity="bottom"
-        android:background="@color/colorPrimary"
-        app:menu="@menu/btm_nav" />
-    </FrameLayout>
-
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
