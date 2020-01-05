@@ -39,6 +39,9 @@
     <string name="visitedString"> Visited </string>
     <string name="date"> Date Visited:</string>
     <string name="title_activity_hillfort_maps">Map of all Hillforts</string>
+    <string name="hillfort_favourite">Favourite</string>
+    <string name="hillfort_favourites">Favourites</string>
+    <string name="hillfort_rating">Rating</string>
 
     <string name="hillfort_image_placeholder">Hillfort Image</string>
     <string name="hillfort_title_placeholder">Hillfort Title</string>
@@ -46,6 +49,7 @@
 
 
     <string name="title_activity_hillfort_list">Hillforts</string>
+    <string name="title_activity_hillfort_favourites">Hillforts</string>
     <string name="title_activity_hillfort">Hillfort</string>
     <string name="title_activity_edit_location">Hillfort</string>
 

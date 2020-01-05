@@ -85,5 +85,23 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/visitedString" />
 
+
+        <TextView
+            android:id="@+id/FavouriteString"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/visited"
+            android:layout_marginTop="3dp"
+            android:paddingTop="3dp"
+            android:text="@string/hillfort_favourite"
+            android:textColor="@color/black" />
+
+        <CheckBox
+            android:id="@+id/favourited"
+            android:layout_width="144dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/FavouriteString"
+            android:layout_marginTop="-3dp" />
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

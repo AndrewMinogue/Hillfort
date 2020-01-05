@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import assignment.hillfort.R
@@ -12,16 +11,12 @@ import assignment.hillfort.activities.*
 import assignment.hillfort.main.MainApp
 import org.jetbrains.anko.startActivityForResult
 import assignment.hillfort.models.HillfortModel
-import assignment.hillfort.models.UserModel
 import assignment.hillfort.views.hillfort.base.BaseView
-import assignment.hillfort.views.hillfort.hillfort.HillfortView
+import assignment.hillfort.views.hillfort.favourite.FavouriteView
 import kotlinx.android.synthetic.main.activity_hillfort_list.toolbar
-import kotlinx.android.synthetic.main.activity_map.*
-import org.jetbrains.anko.startActivity
 
 class HillfortListView: BaseView(), HillfortListener {
 
-    var user = UserModel()
     lateinit var presenter: HillfortListPresenter
     lateinit var app: MainApp
 
@@ -52,9 +47,7 @@ class HillfortListView: BaseView(), HillfortListener {
             R.id.item_add -> presenter.doAddHillfort()
             R.id.item_map -> presenter.doShowHillfortsMap()
             R.id.item_logout ->presenter.doLogout()
-
-        }
-        when (item?.itemId) {
+            R.id.item_favourites -> startActivityForResult<FavouriteView>(0)
             R.id.item_settings -> startActivityForResult<SettingsActivity>(0)
         }
         return super.onOptionsItemSelected(item)
@@ -66,6 +59,7 @@ class HillfortListView: BaseView(), HillfortListener {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        presenter.loadHillforts()
         presenter.loadHillforts()
         recyclerView.adapter?.notifyDataSetChanged()
         super.onActivityResult(requestCode, resultCode, data)

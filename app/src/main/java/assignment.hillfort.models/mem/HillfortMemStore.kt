@@ -19,6 +19,7 @@ class HillfortMemStore : HillfortStore, AnkoLogger {
         return hillforts
     }
 
+
     override fun create(hillfort: HillfortModel) {
         hillfort.id = getId()
         hillforts.add(hillfort)
@@ -44,6 +45,8 @@ class HillfortMemStore : HillfortStore, AnkoLogger {
             foundHillfort.datevisited = hillfort.datevisited
             foundHillfort.notes = hillfort.notes
             foundHillfort.location = hillfort.location
+            foundHillfort.visited = hillfort.visited
+            foundHillfort.favourite = hillfort.favourite
             logAll()
         }
     }

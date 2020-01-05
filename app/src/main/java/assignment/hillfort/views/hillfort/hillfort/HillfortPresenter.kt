@@ -96,10 +96,12 @@ class HillfortPresenter(view: BaseView): BasePresenter(view) {
         }
     }
 
-    fun doAddOrSave(title: String, description: String, additionalnotes : String) {
+    fun doAddOrSave(title: String, description: String, additionalnotes : String,visited: Boolean , favourite: Boolean) {
         hillfort.title = title
         hillfort.description = description
         hillfort.notes = additionalnotes
+        hillfort.visited = visited
+        hillfort.favourite = favourite
 
         doAsync {
             if (edit) {

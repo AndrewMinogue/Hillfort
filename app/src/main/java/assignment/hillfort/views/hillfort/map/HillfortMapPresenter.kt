@@ -2,6 +2,7 @@ package assignment.hillfort.views.hillfort.map
 
 
 import assignment.hillfort.models.HillfortModel
+import assignment.hillfort.models.firebase.HillfortFireStore
 import assignment.hillfort.views.hillfort.base.BasePresenter
 import assignment.hillfort.views.hillfort.base.BaseView
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -15,6 +16,7 @@ import org.jetbrains.anko.uiThread
 
 class HillfortMapPresenter(view: BaseView) : BasePresenter(view) {
 
+
     fun doPopulateMap(map: GoogleMap, hillforts: List<HillfortModel>) {
         map.uiSettings.setZoomControlsEnabled(true)
         hillforts.forEach {
@@ -26,10 +28,11 @@ class HillfortMapPresenter(view: BaseView) : BasePresenter(view) {
     }
 
     fun doMarkerSelected(marker: Marker) {
+        val tag = marker.tag as HillfortModel
         doAsync {
-            val hillfort = marker.tag as HillfortModel
+            val placemark = tag
             uiThread {
-                if (hillfort != null) view?.showHillfort(hillfort)
+                if (placemark != null) view?.showHillfort(placemark)
             }
         }
     }
